@@ -1,0 +1,172 @@
+/* ============================================================
+   THE BUTTON — signature feature spotlight (interactive)
+   ============================================================ */
+.button-spot {
+  background: var(--parchment);
+  padding: 160px 48px;
+  position: relative;
+}
+.button-spot-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+.button-spot-text h2 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--prussian);
+  margin-bottom: 32px;
+}
+.button-spot-text h2 em {
+  font-style: italic;
+  color: var(--antique-gold);
+}
+.button-spot-text p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(15, 26, 46, 0.72);
+  margin-bottom: 28px;
+  max-width: 480px;
+}
+.button-spot-text .quote-source {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--antique-gold);
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline);
+}
+
+/* Interactive demo on right */
+.demo-frame {
+  background: white;
+  border: 1px solid var(--paper-line);
+  padding: 32px 28px;
+  position: relative;
+  box-shadow: 0 28px 80px rgba(18, 43, 79, 0.10), 0 4px 16px rgba(18, 43, 79, 0.04);
+}
+.demo-frame::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: var(--antique-gold);
+}
+.demo-crumbs {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--admiralty);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.demo-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.1;
+  color: var(--prussian);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.demo-title .badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  background: rgba(184, 150, 58, 0.12);
+  color: var(--antique-gold);
+  padding: 4px 10px;
+}
+.demo-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--paper-line);
+  font-size: 13px;
+}
+.demo-row .lbl {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(15, 26, 46, 0.45);
+  padding-top: 1px;
+}
+.demo-row .val {
+  color: var(--prussian);
+  font-weight: 400;
+}
+
+.demo-action {
+  margin-top: 28px;
+  background: rgba(184, 150, 58, 0.08);
+  border: 1px solid var(--hairline-strong);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.demo-action::before {
+  content: 'CONDITIONS MET · ENABLED';
+  position: absolute;
+  top: 6px; left: 12px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  color: var(--antique-gold);
+  opacity: 0.85;
+}
+.demo-action .copy {
+  font-family: var(--heading);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--prussian);
+  margin-top: 6px;
+  line-height: 1.4;
+  max-width: 220px;
+}
+.demo-action button {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: var(--antique-gold);
+  color: var(--prussian-deep);
+  border: none;
+  padding: 14px 22px;
+  position: relative;
+  transition: all 0.4s;
+}
+.demo-action button:hover {
+  background: var(--burnished-gold);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(184, 150, 58, 0.3);
+}
+.demo-action button.pressed {
+  background: var(--prussian);
+  color: var(--burnished-gold);
+}
+.demo-receipt {
+  margin-top: 20px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--admiralty);
+  opacity: 0;
+  transition: opacity 0.5s;
+  line-height: 1.6;
+}
+.demo-receipt.visible { opacity: 1; }
+.demo-receipt .check { color: var(--antique-gold); margin-right: 6px; }

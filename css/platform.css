@@ -1,0 +1,124 @@
+/* ============================================================
+   PLATFORM — five modules, dark sections, the system in detail
+   ============================================================ */
+.platform {
+  background: var(--prussian-deep);
+  color: var(--parchment);
+  padding: 140px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.platform::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(28, 58, 95, 0.55) 0%, transparent 50%),
+              radial-gradient(ellipse at 10% 80%, rgba(184, 150, 58, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+.platform-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  position: relative;
+}
+.platform .section-head { border-color: rgba(184, 150, 58, 0.18); }
+.platform .section-head::after { background: var(--antique-gold); }
+.platform .section-numeral { color: var(--burnished-gold); }
+.platform .section-label { color: rgba(250, 247, 242, 0.55); }
+
+.platform-headline {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(38px, 5.5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+  color: var(--parchment);
+  margin-bottom: 28px;
+  max-width: 1000px;
+}
+.platform-headline em {
+  font-style: italic;
+  color: var(--burnished-gold);
+}
+.platform-sub {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(250, 247, 242, 0.72);
+  max-width: 620px;
+  margin-bottom: 96px;
+}
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 1px;
+  background: rgba(184, 150, 58, 0.15);
+  border: 1px solid rgba(184, 150, 58, 0.15);
+}
+.module-card {
+  background: var(--prussian-deep);
+  padding: 44px 38px;
+  position: relative;
+  transition: background 0.5s;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+.module-card:hover { background: #0c1f3d; }
+.module-card.large { grid-row: span 2; min-height: 660px; padding: 56px 48px; }
+
+.mod-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--burnished-gold);
+  margin-bottom: 16px;
+}
+.mod-name {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--parchment);
+  margin-bottom: 18px;
+}
+.module-card.large .mod-name { font-size: 56px; }
+.mod-name em { font-style: italic; color: var(--burnished-gold); font-weight: 400; }
+.mod-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(250, 247, 242, 0.65);
+  max-width: 400px;
+  margin-bottom: auto;
+}
+.mod-meta {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(184, 150, 58, 0.18);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mod-meta .ref {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(184, 150, 58, 0.65);
+  text-transform: uppercase;
+}
+.mod-meta .arr {
+  font-size: 16px;
+  color: var(--burnished-gold);
+  transition: transform 0.3s;
+}
+.module-card:hover .mod-meta .arr { transform: translateX(6px); }
+
+/* Large card decoration */
+.module-card.large::after {
+  content: '';
+  position: absolute;
+  top: 56px; right: 48px;
+  width: 80px; height: 80px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23B8963A' stroke-width='0.7' opacity='0.6'%3E%3Ccircle cx='40' cy='40' r='38'/%3E%3Ccircle cx='40' cy='40' r='28'/%3E%3Ccircle cx='40' cy='40' r='18'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3Cline x1='40' y1='2' x2='40' y2='78'/%3E%3Cline x1='2' y1='40' x2='78' y2='40'/%3E%3C/svg%3E");
+}

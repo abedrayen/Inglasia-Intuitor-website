@@ -1,0 +1,65 @@
+/* ============================================================
+   PHILOSOPHY — quote and signature block
+   ============================================================ */
+.philosophy {
+  background: var(--prussian-deep);
+  color: var(--parchment);
+  padding: 180px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.philosophy::before {
+  content: '"';
+  position: absolute;
+  top: 50px;
+  left: 80px;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 480px;
+  color: var(--antique-gold);
+  opacity: 0.07;
+  line-height: 1;
+}
+.philosophy-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+.philosophy blockquote {
+  font-family: var(--display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.18;
+  letter-spacing: -0.005em;
+  color: var(--parchment);
+  margin-bottom: 56px;
+}
+.philosophy blockquote em {
+  font-style: italic;
+  color: var(--burnished-gold);
+}
+.philosophy .signature {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.philosophy .sig-rule {
+  width: 80px; height: 1px;
+  background: var(--antique-gold);
+}
+.philosophy .sig-name {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--burnished-gold);
+}
+.philosophy .sig-role {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(250, 247, 242, 0.55);
+}

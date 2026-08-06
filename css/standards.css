@@ -1,0 +1,52 @@
+/* ============================================================
+   STANDARDS — the regulatory badge row
+   ============================================================ */
+.standards {
+  background: var(--parchment);
+  padding: 140px 48px;
+}
+.standards-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.standards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin-top: 32px;
+}
+.std-card {
+  border-top: 1px solid var(--prussian);
+  padding-top: 28px;
+  position: relative;
+}
+.std-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 0;
+  width: 32px; height: 1px;
+  background: var(--antique-gold);
+}
+.std-card .name {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: -0.005em;
+  color: var(--prussian);
+  margin-bottom: 10px;
+  line-height: 1.05;
+}
+.std-card .name em { font-style: italic; color: var(--antique-gold); }
+.std-card .ref {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--admiralty);
+  margin-bottom: 14px;
+}
+.std-card .desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(15, 26, 46, 0.66);
+}

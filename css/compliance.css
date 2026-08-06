@@ -1,0 +1,52 @@
+/* ============================================================
+   COMPLIANCE MARQUEE
+   ============================================================ */
+.compliance-strip {
+  background: var(--prussian-deep);
+  border-top: 1px solid rgba(184, 150, 58, 0.15);
+  border-bottom: 1px solid rgba(184, 150, 58, 0.15);
+  padding: 24px 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.compliance-strip::before,
+.compliance-strip::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+.compliance-strip::before { left: 0; background: linear-gradient(to right, var(--prussian-deep), transparent); }
+.compliance-strip::after  { right: 0; background: linear-gradient(to left, var(--prussian-deep), transparent); }
+
+.marquee {
+  display: flex;
+  gap: 80px;
+  animation: marquee 38s linear infinite;
+  width: max-content;
+}
+.marquee span {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  color: rgba(250, 247, 242, 0.55);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 80px;
+}
+.marquee span::after {
+  content: '◆';
+  color: var(--antique-gold);
+  font-size: 8px;
+  font-style: normal;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}

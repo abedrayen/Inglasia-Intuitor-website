@@ -1,0 +1,56 @@
+/* ============================================================
+   PROMISE SECTION — oversized editorial pull
+   ============================================================ */
+.promise {
+  background: var(--parchment);
+  position: relative;
+}
+.promise-quote {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(36px, 5.5vw, 76px);
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  color: var(--prussian);
+  max-width: 980px;
+  margin-bottom: 56px;
+}
+.promise-quote em {
+  font-style: italic;
+  color: var(--antique-gold);
+  font-weight: 400;
+}
+.promise-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 64px 80px;
+  margin-top: 40px;
+}
+.promise-item {
+  border-top: 1px solid var(--hairline);
+  padding-top: 28px;
+  padding-right: 20px;
+}
+.promise-item .pi-num {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--antique-gold);
+  margin-bottom: 14px;
+  display: block;
+}
+.promise-item h3 {
+  font-family: var(--heading);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.25;
+  color: var(--prussian);
+  margin-bottom: 14px;
+  letter-spacing: -0.005em;
+}
+.promise-item p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(15, 26, 46, 0.72);
+  max-width: 440px;
+}

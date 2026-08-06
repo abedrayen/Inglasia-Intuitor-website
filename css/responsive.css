@@ -1,0 +1,48 @@
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; gap: 80px; padding-top: 140px; }
+  .hero-mark { max-width: 340px; margin: 0 auto; }
+  .button-spot-inner { grid-template-columns: 1fr; gap: 60px; }
+  .origin-inner { grid-template-columns: 1fr; gap: 80px; }
+  .modules-grid { grid-template-columns: 1fr 1fr; }
+  .module-card.large { grid-row: span 1; min-height: 380px; }
+  .standards-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .promise-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  .nav { padding: 14px 18px; gap: 10px; }
+  .nav.scrolled { padding: 12px 18px; }
+  .nav-links { display: none; }
+  .nav-brand img { width: 28px; height: 28px; }
+  .nav-brand .wordmark { font-size: 17px; }
+  .nav-cta { padding: 8px 14px; font-size: 9.5px; letter-spacing: 0.16em; white-space: nowrap; }
+  .section, .platform, .button-spot, .origin, .standards, .philosophy, .cta-strip { padding-left: 22px; padding-right: 22px; }
+  .hero-content { padding: 130px 22px 100px; }
+  .hero .bracket { width: 50px; height: 50px; }
+  .hero .bracket.tr { top: 20px; right: 20px; }
+  .hero .bracket.bl { bottom: 20px; left: 20px; }
+  .modules-grid { grid-template-columns: 1fr; }
+  .standards-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 36px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .section-head { flex-wrap: wrap; gap: 12px; }
+  .section-label { margin-left: 0; }
+  .hero-cta-group { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .btn-primary { padding: 16px 28px; }
+  .cta-strip .cta-row { flex-direction: column; gap: 24px; }
+  .philosophy::before { font-size: 240px; left: 20px; top: 30px; }
+  .module-card.large::after { width: 50px; height: 50px; top: 32px; right: 28px; }
+  .module-card.large { padding: 40px 28px; min-height: 320px; }
+  .module-card { padding: 36px 28px; }
+  .module-card .mod-name { font-size: 30px; }
+  .module-card.large .mod-name { font-size: 38px; }
+  .demo-action { flex-direction: column; align-items: stretch; gap: 16px; padding-top: 28px; }
+  .demo-action button { padding: 14px 16px; width: 100%; }
+}
+@media (max-width: 380px) {
+  .nav-brand .wordmark { font-size: 15px; }
+  .nav-cta { padding: 7px 10px; font-size: 9px; letter-spacing: 0.12em; }
+}

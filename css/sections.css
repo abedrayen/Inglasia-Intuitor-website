@@ -1,0 +1,41 @@
+/* ============================================================
+   SECTION CHROME — Roman numerals & section headers
+   ============================================================ */
+.section {
+  padding: 140px 48px;
+  max-width: 1320px;
+  margin: 0 auto;
+  position: relative;
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 32px;
+  padding-bottom: 28px;
+  margin-bottom: 80px;
+  border-bottom: 1px solid var(--paper-line);
+  position: relative;
+}
+.section-head::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -1px;
+  width: 88px; height: 1px;
+  background: var(--antique-gold);
+}
+.section-numeral {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--antique-gold);
+  letter-spacing: 0.02em;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--admiralty);
+  margin-left: auto;
+}
