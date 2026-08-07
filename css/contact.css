@@ -211,7 +211,6 @@
   flex-direction: column;
   gap: 32px;
 }
-.contact-form.is-sent { display: none; }
 
 .field {
   display: flex;
@@ -268,61 +267,19 @@
   background: var(--antique-gold);
   color: var(--prussian-deep);
 }
+.contact-form .btn-primary:disabled {
+  opacity: 0.55;
+  cursor: wait;
+  transform: none;
+  box-shadow: none;
+}
 .contact-form .btn-primary:hover {
   background: var(--burnished-gold);
   box-shadow: 0 12px 32px rgba(184, 150, 58, 0.28);
 }
-
-.contact-success {
-  display: none;
-  padding: 24px 0 8px;
-  animation: contactRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.contact-success.is-visible { display: block; }
-.contact-success .mark {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--burnished-gold);
-  margin-bottom: 24px;
-}
-.contact-success h2 {
-  font-family: var(--display);
-  font-weight: 300;
-  font-size: clamp(36px, 5vw, 56px);
-  line-height: 1.08;
-  letter-spacing: -0.015em;
-  color: var(--parchment);
-  margin-bottom: 20px;
-}
-.contact-success h2 em {
-  font-style: italic;
-  color: var(--burnished-gold);
-}
-.contact-success p {
-  font-size: 16px;
-  line-height: 1.75;
-  color: rgba(250, 247, 242, 0.7);
-  max-width: 420px;
-  margin-bottom: 36px;
-}
-.contact-success .btn-ghost-dark {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--parchment);
-  text-decoration: none;
-  padding: 18px 4px;
-  border-bottom: 1px solid rgba(250, 247, 242, 0.35);
-  transition: all 0.3s;
-  background: none;
-  cursor: pointer;
-}
-.contact-success .btn-ghost-dark:hover {
-  color: var(--burnished-gold);
-  border-color: var(--burnished-gold);
+.contact-form .btn-primary:disabled:hover {
+  background: var(--antique-gold);
+  box-shadow: none;
 }
 
 @keyframes contactRise {
@@ -355,4 +312,104 @@
 }
 @media (max-width: 400px) {
   .calendly-inline-widget { height: 600px; }
+}
+
+/* —— Thank-you popup —— */
+body.thankyou-open { overflow: hidden; }
+body.thankyou-open .cursor-dot {
+  z-index: 10060;
+  opacity: 1;
+  visibility: visible;
+}
+body.thankyou-open .cursor-ring {
+  z-index: 10059;
+  opacity: 1;
+  visibility: visible;
+}
+
+.thankyou-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 22px;
+  background: rgba(10, 26, 51, 0.82);
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  animation: thankyouFade 0.35s ease both;
+}
+.thankyou-overlay[hidden] { display: none !important; }
+.thankyou-overlay.is-open { display: flex; }
+
+.thankyou-modal {
+  position: relative;
+  width: min(560px, 100%);
+  text-align: center;
+  background: var(--prussian);
+  border: 1px solid rgba(184, 150, 58, 0.35);
+  padding: 56px 40px 48px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  animation: thankyouRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.thankyou-modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--antique-gold), transparent);
+}
+
+.thankyou-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--burnished-gold);
+  margin-bottom: 24px;
+}
+
+.thankyou-modal h2 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--parchment);
+  margin-bottom: 20px;
+}
+.thankyou-modal h2 em {
+  font-style: italic;
+  color: var(--burnished-gold);
+}
+
+.thankyou-lead {
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(250, 247, 242, 0.72);
+  max-width: 400px;
+  margin: 0 auto 40px;
+}
+
+.thankyou-modal .btn-primary {
+  background: var(--antique-gold);
+  color: var(--prussian-deep);
+}
+.thankyou-modal .btn-primary:hover {
+  background: var(--burnished-gold);
+  box-shadow: 0 12px 32px rgba(184, 150, 58, 0.28);
+}
+
+@keyframes thankyouFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .thankyou-modal { padding: 44px 24px 40px; }
+  .thankyou-modal .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
 }

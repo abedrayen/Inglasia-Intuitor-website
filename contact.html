@@ -151,19 +151,24 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" placeholder="Tell us about your quality system, timeline, or the question you want answered." required></textarea>
           </div>
-          <button type="submit" class="btn-primary">Send message</button>
+          <button type="button" class="btn-primary" id="contactSend">Send message</button>
         </form>
-
-        <div class="contact-success" id="contactSuccess" role="status" aria-live="polite">
-          <div class="mark">Received</div>
-          <h2>Thank you.<br><em>We'll be in touch.</em></h2>
-          <p>Your message is noted. An Inglasia specialist will reply shortly.</p>
-          <button type="button" class="btn-ghost-dark" id="contactReset">Send another message</button>
-        </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Thank-you popup -->
+<div class="thankyou-overlay" id="thankyouOverlay" hidden>
+  <div class="thankyou-modal" role="dialog" aria-modal="true" aria-labelledby="thankyouTitle">
+    <p class="thankyou-eyebrow" id="thankyouEyebrow">Confirmation</p>
+    <h2 id="thankyouTitle">Thank you.<br><em id="thankyouAccent">We'll be in touch.</em></h2>
+    <p class="thankyou-lead" id="thankyouLead">
+      Your note is with us. An Inglasia specialist will follow up shortly.
+    </p>
+    <a href="index.html" class="btn-primary thankyou-home">Back to home</a>
+  </div>
+</div>
 
 <footer>
   <div class="footer-inner">
@@ -257,7 +262,7 @@
 <script src="js/cursor.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/reveal.js"></script>
-<script src="https://assets.calendly.com/assets/external/widget.js"></script>
-<script src="js/contact.js"></script>
+<script src="js/contact.js?v=6"></script>
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
