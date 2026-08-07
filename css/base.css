@@ -19,8 +19,15 @@
   --mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+}
 body {
   font-family: var(--body);
   font-weight: 300;
