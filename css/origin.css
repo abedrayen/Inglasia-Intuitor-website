@@ -66,6 +66,16 @@
 .origin-figure .massive em {
   font-style: italic;
 }
+.origin-figure .over {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(56px, 8vw, 96px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--burnished-gold);
+  margin-bottom: -0.35em;
+}
 .origin-figure .massive::after {
   content: '';
   position: absolute;

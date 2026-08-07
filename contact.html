@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Inglasia Intuitor</title>
+<meta name="description" content="Book a walkthrough or write to Inglasia. Contact Inglasia Ltd at Great Portland Street, London." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/cursor.css">
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/contact.css">
+<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="page-contact">
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav class="nav scrolled" id="nav">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/logo.png" alt="Inglasia mark" />
+    <span class="wordmark">Inglasia <em>Intuitor</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html#platform">Platform</a>
+    <a href="index.html#button">The Button</a>
+    <a href="index.html#origin">Origin</a>
+    <a href="index.html#standards">Standards</a>
+    <a href="index.html#philosophy">Philosophy</a>
+  </div>
+  <a href="#meeting" class="nav-cta">Request a walkthrough</a>
+</nav>
+
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <aside class="contact-intro">
+      <div class="section-head" data-reveal>
+        <span class="section-numeral">VIII.</span>
+        <span class="section-label">Contact</span>
+      </div>
+      <h1 data-reveal>Book a walkthrough.<br><em>Or write to us.</em></h1>
+      <p class="lead" data-reveal data-reveal-delay="1">
+        Prefer a live session? Pick a time. Prefer email? Leave a message — we'll reply without a calendar hold.
+      </p>
+
+      <div class="contact-details" data-reveal data-reveal-delay="2">
+        <div class="contact-detail">
+          <svg class="contact-detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 21s7-5.4 7-11a7 7 0 10-14 0c0 5.6 7 11 7 11z"/>
+            <circle cx="12" cy="10" r="2.5"/>
+          </svg>
+          <div>
+            <div class="label">Address</div>
+            <div class="value">167–169 Great Portland Street, 5th Floor, London, W1W 5PF</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <svg class="contact-detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v2.5a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.8 19.8 0 012.6 4.18 2 2 0 014.6 2h2.5a2 2 0 012 1.72c.13.96.35 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.55 2.81.68A2 2 0 0122 16.92z"/>
+          </svg>
+          <div>
+            <div class="label">Phone</div>
+            <div class="value"><a href="tel:+442076925259">020 7692 5259</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <svg class="contact-detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="1"/>
+            <path d="M3 7l9 7 9-7"/>
+          </svg>
+          <div>
+            <div class="label">Email</div>
+            <div class="value"><a href="mailto:hello@inglasia.com">hello@inglasia.com</a></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+      <div class="contact-panel" id="panel" data-reveal data-reveal-delay="1">
+      <div class="contact-modes-label">Choose how to reach us</div>
+      <div class="contact-modes" role="tablist" aria-label="Contact options">
+        <button
+          type="button"
+          class="contact-mode is-active"
+          role="tab"
+          id="tab-meeting"
+          aria-selected="true"
+          aria-controls="panel-meeting"
+          data-mode="meeting"
+        >Book a meeting</button>
+        <button
+          type="button"
+          class="contact-mode"
+          role="tab"
+          id="tab-message"
+          aria-selected="false"
+          aria-controls="panel-message"
+          data-mode="message"
+        >Send a message</button>
+      </div>
+
+      <div
+        class="contact-pane is-active"
+        role="tabpanel"
+        id="panel-meeting"
+        aria-labelledby="tab-meeting"
+      >
+        <p class="contact-pane-lead">Thirty minutes. Your hardest audit question. Live on your data shape.</p>
+        <div class="contact-calendly">
+          <div
+            class="calendly-inline-widget"
+            data-url="https://calendly.com/hellmi-khiari/new-meeting?hide_gdpr_banner=1&hide_event_type_details=1&background_color=122b4f&text_color=faf7f2&primary_color=b8963a"
+          ></div>
+        </div>
+      </div>
+
+      <div
+        class="contact-pane"
+        role="tabpanel"
+        id="panel-message"
+        aria-labelledby="tab-message"
+        hidden
+      >
+        <p class="contact-pane-lead">No meeting required. Tell us what you need and we'll follow up by email.</p>
+
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" autocomplete="name" placeholder="Jane Doe" required />
+            </div>
+            <div class="field">
+              <label for="email">Work email</label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="jane@company.com" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" autocomplete="organization" placeholder="Acme Pharma Ltd" required />
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your quality system, timeline, or the question you want answered." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Send message</button>
+        </form>
+
+        <div class="contact-success" id="contactSuccess" role="status" aria-live="polite">
+          <div class="mark">Received</div>
+          <h2>Thank you.<br><em>We'll be in touch.</em></h2>
+          <p>Your message is noted. An Inglasia specialist will reply shortly.</p>
+          <button type="button" class="btn-ghost-dark" id="contactReset">Send another message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="fb-mark">
+          <img src="assets/logo.png" alt="Inglasia mark" />
+          <span class="wm">Inglasia <em>Intuitor</em></span>
+        </div>
+        <p>
+          The compliant-by-design eQMS platform. Built by big-pharma SMEs. Mature on day one. Priced so quality is for everyone.
+        </p>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <div class="footer-contact-row">
+            <svg class="footer-contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 21s7-5.4 7-11a7 7 0 10-14 0c0 5.6 7 11 7 11z"/>
+              <circle cx="12" cy="10" r="2.5"/>
+            </svg>
+            <p>167–169 Great Portland Street, 5th Floor, London, W1W 5PF</p>
+          </div>
+          <div class="footer-contact-row">
+            <svg class="footer-contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v2.5a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.8 19.8 0 012.6 4.18 2 2 0 014.6 2h2.5a2 2 0 012 1.72c.13.96.35 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.55 2.81.68A2 2 0 0122 16.92z"/>
+            </svg>
+            <a href="tel:+442076925259">020 7692 5259</a>
+          </div>
+          <a
+            class="footer-map"
+            href="https://www.google.com/maps/search/?api=1&query=167-169+Great+Portland+Street,+London+W1W+5PF"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View office on Google Maps"
+          >
+            <iframe
+              title="Inglasia office location"
+              src="https://www.google.com/maps?q=167-169+Great+Portland+Street,+London+W1W+5PF&z=15&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              tabindex="-1"
+            ></iframe>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="index.html#platform">Document Control</a></li>
+          <li><a href="index.html#platform">Deviations</a></li>
+          <li><a href="index.html#platform">CAPA</a></li>
+          <li><a href="index.html#platform">Change Control</a></li>
+          <li><a href="index.html#platform">Learning Management</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Validation pack</a></li>
+          <li><a href="#">Functional design specs</a></li>
+          <li><a href="#">Audit support</a></li>
+          <li><a href="#">Migration playbook</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Inglasia</a></li>
+          <li><a href="index.html#philosophy">Brand philosophy</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Inglasia Ltd · All rights reserved</div>
+      <div class="right">
+        <a href="https://www.linkedin.com/company/inglasia-ltd/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-social">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">GDPR</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/cursor.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/reveal.js"></script>
+<script src="https://assets.calendly.com/assets/external/widget.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

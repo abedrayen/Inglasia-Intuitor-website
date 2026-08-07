@@ -40,6 +40,74 @@ footer {
   line-height: 1.7;
   max-width: 360px;
 }
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 360px;
+}
+.footer-contact h4 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--burnished-gold);
+  margin-bottom: 4px;
+}
+.footer-contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.footer-contact-icon {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--burnished-gold);
+}
+.footer-contact-row p,
+.footer-contact-row a {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(250, 247, 242, 0.6);
+  margin: 0;
+  max-width: none;
+}
+.footer-contact-row a {
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-contact-row a:hover { color: var(--burnished-gold); }
+.footer-map {
+  display: block;
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--hairline-strong);
+  background: var(--prussian);
+  flex-shrink: 0;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.footer-map:hover {
+  border-color: var(--burnished-gold);
+  box-shadow: 0 0 0 1px rgba(212, 174, 92, 0.25);
+}
+.footer-map iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 280px;
+  transform: translate(-50%, -50%);
+  border: 0;
+  pointer-events: none;
+  filter: grayscale(0.4) contrast(1.05) brightness(0.92);
+  transition: filter 0.4s ease;
+}
+.footer-map:hover iframe {
+  filter: grayscale(0.15) contrast(1.02) brightness(1);
+}
 .footer-col h4 {
   font-family: var(--mono);
   font-size: 10px;
@@ -69,6 +137,14 @@ footer {
   text-transform: uppercase;
   color: rgba(250, 247, 242, 0.4);
 }
-.footer-bottom .right { display: flex; gap: 28px; }
+.footer-bottom .right { display: flex; gap: 28px; align-items: center; }
 .footer-bottom a { color: inherit; text-decoration: none; }
 .footer-bottom a:hover { color: var(--burnished-gold); }
+.footer-bottom .footer-social {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  transition: color 0.3s;
+}
+.footer-bottom .footer-social:hover { color: var(--burnished-gold); }
+.footer-bottom .footer-social svg { display: block; }
