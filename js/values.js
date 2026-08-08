@@ -6,7 +6,7 @@
   const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
   const lotus = root.querySelector('.values-lotus');
   const tablist = root.querySelector('[role="tablist"]');
-  const details = root.querySelector('.values-details');
+  const details = root.querySelector('.values-readout');
 
   let activeIdx = 0;
   let rotation = 0;
