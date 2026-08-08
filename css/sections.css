@@ -2,7 +2,7 @@
    SECTION CHROME — Roman numerals & section headers
    ============================================================ */
 .section {
-  padding: 140px 48px;
+  padding: 96px 48px;
   max-width: 1320px;
   margin: 0 auto;
   position: relative;
@@ -10,9 +10,9 @@
 .section-head {
   display: flex;
   align-items: baseline;
-  gap: 32px;
-  padding-bottom: 28px;
-  margin-bottom: 56px;
+  gap: 24px;
+  padding-bottom: 20px;
+  margin-bottom: 36px;
   border-bottom: 1px solid var(--paper-line);
   position: relative;
   width: 100%;
@@ -22,21 +22,21 @@
   content: '';
   position: absolute;
   left: 0; bottom: -1px;
-  width: 88px; height: 1px;
+  width: 72px; height: 1px;
   background: var(--antique-gold);
 }
 .section-numeral {
   font-family: var(--display);
   font-style: italic;
   font-weight: 400;
-  font-size: 28px;
+  font-size: 22px;
   color: var(--antique-gold);
   letter-spacing: 0.02em;
 }
 .section-label {
   font-family: var(--body);
-  font-size: 13px;
-  letter-spacing: 0.22em;
+  font-size: 12px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--admiralty);
   margin-left: auto;

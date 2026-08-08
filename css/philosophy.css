@@ -4,7 +4,7 @@
 .philosophy {
   background: var(--prussian-deep);
   color: var(--parchment);
-  padding: 180px 48px;
+  padding: 100px 48px;
   position: relative;
   overflow: hidden;
 }
@@ -15,7 +15,7 @@
   left: 80px;
   font-family: var(--display);
   font-style: italic;
-  font-size: 480px;
+  font-size: 280px;
   color: var(--antique-gold);
   opacity: 0.07;
   line-height: 1;
@@ -30,11 +30,11 @@
   font-family: var(--display);
   font-weight: 300;
   font-style: italic;
-  font-size: clamp(36px, 5vw, 60px);
-  line-height: 1.18;
+  font-size: clamp(28px, 3.8vw, 44px);
+  line-height: 1.2;
   letter-spacing: -0.005em;
   color: var(--parchment);
-  margin-bottom: 56px;
+  margin-bottom: 36px;
 }
 .philosophy blockquote em {
   font-style: italic;

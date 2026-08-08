@@ -4,7 +4,7 @@
 .platform {
   background: var(--prussian-deep);
   color: var(--parchment);
-  padding: 140px 48px;
+  padding: 96px 48px;
   position: relative;
   overflow: hidden;
 }
@@ -28,23 +28,23 @@
 .platform-headline {
   font-family: var(--display);
   font-weight: 300;
-  font-size: clamp(34px, 4.8vw, 64px);
-  line-height: 1.08;
+  font-size: clamp(28px, 3.8vw, 48px);
+  line-height: 1.1;
   letter-spacing: -0.01em;
   color: var(--parchment);
-  margin-bottom: 28px;
-  max-width: 1000px;
+  margin-bottom: 20px;
+  max-width: 900px;
 }
 .platform-headline em {
   font-style: italic;
   color: var(--burnished-gold);
 }
 .platform-sub {
-  font-size: 17px;
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.65;
   color: rgba(250, 247, 242, 0.72);
-  max-width: 620px;
-  margin-bottom: 96px;
+  max-width: 560px;
+  margin-bottom: 56px;
 }
 
 .modules-grid {
@@ -56,15 +56,15 @@
 }
 .module-card {
   background: var(--prussian-deep);
-  padding: 44px 38px;
+  padding: 32px 28px;
   position: relative;
   transition: background 0.5s;
-  min-height: 320px;
+  min-height: 240px;
   display: flex;
   flex-direction: column;
 }
 .module-card:hover { background: #0c1f3d; }
-.module-card.large { grid-row: span 2; min-height: 660px; padding: 56px 48px; }
+.module-card.large { grid-row: span 2; min-height: 480px; padding: 40px 36px; }
 
 .mod-tag {
   font-family: var(--body);
@@ -77,13 +77,13 @@
 .mod-name {
   font-family: var(--display);
   font-weight: 300;
-  font-size: 38px;
-  line-height: 1.05;
+  font-size: 28px;
+  line-height: 1.08;
   letter-spacing: -0.01em;
   color: var(--parchment);
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
-.module-card.large .mod-name { font-size: 56px; }
+.module-card.large .mod-name { font-size: 40px; }
 .mod-name em { font-style: italic; color: var(--burnished-gold); font-weight: 400; }
 .mod-desc {
   font-size: 14px;

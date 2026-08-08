@@ -3,7 +3,7 @@
    ============================================================ */
 .standards {
   background: var(--parchment);
-  padding: 140px 48px;
+  padding: 96px 48px;
 }
 .standards-inner {
   max-width: 1320px;
@@ -35,7 +35,7 @@
 .std-card .name {
   font-family: var(--display);
   font-weight: 400;
-  font-size: 32px;
+  font-size: 24px;
   letter-spacing: -0.005em;
   color: var(--prussian);
   margin-bottom: 10px;

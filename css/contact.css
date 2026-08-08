@@ -11,7 +11,7 @@
 .contact {
   background: var(--prussian);
   color: var(--parchment);
-  padding: 160px 48px 120px;
+  padding: 110px 48px 80px;
   position: relative;
   overflow: hidden;
 }
@@ -43,7 +43,7 @@
 .contact-intro h1 {
   font-family: var(--display);
   font-weight: 300;
-  font-size: clamp(44px, 6.5vw, 80px);
+  font-size: clamp(32px, 4.8vw, 56px);
   line-height: 1.02;
   letter-spacing: -0.015em;
   color: var(--parchment);
@@ -374,7 +374,7 @@ body.thankyou-open .cursor-ring {
 .thankyou-modal h2 {
   font-family: var(--display);
   font-weight: 300;
-  font-size: clamp(36px, 6vw, 56px);
+  font-size: clamp(28px, 4.5vw, 44px);
   line-height: 1.06;
   letter-spacing: -0.015em;
   color: var(--parchment);

@@ -30,8 +30,8 @@ html {
 body {
   font-family: var(--body);
   font-weight: 300;
-  font-size: 15px;
-  line-height: 1.75;
+  font-size: 14px;
+  line-height: 1.7;
   letter-spacing: 0.01em;
   color: var(--ink);
   background: var(--parchment);

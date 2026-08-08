@@ -8,12 +8,12 @@
 .promise-quote {
   font-family: var(--display);
   font-weight: 300;
-  font-size: clamp(32px, 4.5vw, 64px);
-  line-height: 1.1;
+  font-size: clamp(26px, 3.6vw, 48px);
+  line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--prussian);
-  max-width: 980px;
-  margin-bottom: 56px;
+  max-width: 860px;
+  margin-bottom: 40px;
 }
 .promise-quote em {
   font-style: italic;
@@ -23,34 +23,34 @@
 .promise-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 64px 80px;
-  margin-top: 40px;
+  gap: 40px 56px;
+  margin-top: 28px;
 }
 .promise-item {
   border-top: 1px solid var(--hairline);
-  padding-top: 28px;
-  padding-right: 20px;
+  padding-top: 20px;
+  padding-right: 16px;
 }
 .promise-item .pi-num {
   font-family: var(--display);
   font-style: italic;
-  font-size: 26px;
+  font-size: 20px;
   color: var(--antique-gold);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   display: block;
 }
 .promise-item h3 {
   font-family: var(--display);
   font-weight: 500;
-  font-size: 22px;
+  font-size: 18px;
   line-height: 1.25;
   color: var(--prussian);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   letter-spacing: -0.005em;
 }
 .promise-item p {
-  font-size: 15px;
-  line-height: 1.75;
+  font-size: 14px;
+  line-height: 1.7;
   color: rgba(15, 26, 46, 0.72);
-  max-width: 440px;
+  max-width: 420px;
 }
