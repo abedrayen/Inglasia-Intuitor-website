@@ -52,14 +52,15 @@
   font-weight: 400;
 }
 
-/* Links centered in the space between brand and actions */
+/* Links locked to bar center — CTA presence must not shift them */
 .nav-panel {
-  flex: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 0;
-  position: relative;
   z-index: 1;
 }
 
@@ -173,8 +174,6 @@
 
   /* Small dropdown under the hamburger — slides open */
   .nav-panel {
-    flex: none;
-    position: absolute;
     top: calc(100% + 8px);
     right: 28px;
     left: auto;
@@ -182,7 +181,6 @@
     width: min(220px, calc(100vw - 36px));
     margin: 0;
     padding: 10px 0;
-    display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
