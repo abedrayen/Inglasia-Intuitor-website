@@ -12,11 +12,10 @@
   --hairline-strong: rgba(184, 150, 58, 0.45);
   --paper-line: rgba(18, 43, 79, 0.10);
 
-  /* Type stacks */
+  /* Type stacks — 3 fonts only */
   --display: "Cormorant Garamond", "Georgia", serif;
-  --heading: "Lora", "Georgia", serif;
+  --button: "Lora", "Georgia", serif;
   --body: "Inter Tight", "Calibri", system-ui, sans-serif;
-  --mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
 }
 
 * {
@@ -36,7 +35,7 @@ body {
   letter-spacing: 0.01em;
   color: var(--ink);
   background: var(--parchment);
-  overflow-x: hidden;
+  overflow-x: clip;
   cursor: default;
 }
 

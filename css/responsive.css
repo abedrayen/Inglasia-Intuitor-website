@@ -9,7 +9,6 @@
   .modules-grid { grid-template-columns: 1fr 1fr; }
   .module-card.large { grid-row: span 1; min-height: 380px; }
   .standards-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-top { grid-template-columns: 1fr 1fr; }
   .promise-grid { grid-template-columns: 1fr; gap: 40px; }
 }
 @media (max-width: 640px) {
@@ -17,8 +16,8 @@
   .nav.scrolled { padding: 12px 18px; }
   .nav-links { display: none; }
   .nav-brand img { width: 28px; height: 28px; }
-  .nav-brand .wordmark { font-size: 17px; }
-  .nav-cta { padding: 8px 14px; font-size: 9.5px; letter-spacing: 0.16em; white-space: nowrap; }
+  .nav-brand .wordmark { font-size: 22px; }
+  .nav-cta { padding: 10px 16px; font-size: 12px; letter-spacing: 0.04em; white-space: nowrap; }
   .section, .platform, .button-spot, .origin, .standards, .philosophy, .cta-strip, .contact { padding-left: 22px; padding-right: 22px; }
   .hero-content { padding: 130px 22px 100px; }
   .hero .bracket { width: 50px; height: 50px; }
@@ -26,7 +25,6 @@
   .hero .bracket.bl { bottom: 20px; left: 20px; }
   .modules-grid { grid-template-columns: 1fr; }
   .standards-grid { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr; gap: 36px; }
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
   .section-head { flex-wrap: wrap; gap: 12px; }
   .section-label { margin-left: 0; }
@@ -43,6 +41,6 @@
   .demo-action button { padding: 14px 16px; width: 100%; }
 }
 @media (max-width: 380px) {
-  .nav-brand .wordmark { font-size: 15px; }
-  .nav-cta { padding: 7px 10px; font-size: 9px; letter-spacing: 0.12em; }
+  .nav-brand .wordmark { font-size: 18px; }
+  .nav-cta { padding: 8px 12px; font-size: 11px; letter-spacing: 0.04em; }
 }

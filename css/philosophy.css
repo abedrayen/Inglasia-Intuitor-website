@@ -57,7 +57,7 @@
   color: var(--burnished-gold);
 }
 .philosophy .sig-role {
-  font-family: var(--mono);
+  font-family: var(--body);
   font-size: 10px;
   letter-spacing: 0.25em;
   text-transform: uppercase;

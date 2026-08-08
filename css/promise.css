@@ -8,9 +8,9 @@
 .promise-quote {
   font-family: var(--display);
   font-weight: 300;
-  font-size: clamp(36px, 5.5vw, 76px);
-  line-height: 1.08;
-  letter-spacing: -0.012em;
+  font-size: clamp(32px, 4.5vw, 64px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
   color: var(--prussian);
   max-width: 980px;
   margin-bottom: 56px;
@@ -34,22 +34,22 @@
 .promise-item .pi-num {
   font-family: var(--display);
   font-style: italic;
-  font-size: 18px;
+  font-size: 26px;
   color: var(--antique-gold);
   margin-bottom: 14px;
   display: block;
 }
 .promise-item h3 {
-  font-family: var(--heading);
+  font-family: var(--display);
   font-weight: 500;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 1.25;
   color: var(--prussian);
   margin-bottom: 14px;
   letter-spacing: -0.005em;
 }
 .promise-item p {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.75;
   color: rgba(15, 26, 46, 0.72);
   max-width: 440px;

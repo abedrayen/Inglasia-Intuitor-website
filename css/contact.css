@@ -87,7 +87,7 @@
   color: var(--burnished-gold);
 }
 .contact-detail .label {
-  font-family: var(--mono);
+  font-family: var(--body);
   font-size: 10px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
@@ -121,9 +121,9 @@
 }
 
 .contact-modes-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.3em;
+  font-family: var(--body);
+  font-size: 12px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--burnished-gold);
   margin-bottom: 18px;
@@ -136,9 +136,9 @@
   border: 1px solid rgba(184, 150, 58, 0.35);
 }
 .contact-mode {
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.14em;
+  font-family: var(--button);
+  font-size: 14px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(250, 247, 242, 0.72);
   background: rgba(10, 26, 51, 0.35);
@@ -224,7 +224,7 @@
   gap: 28px;
 }
 .field label {
-  font-family: var(--mono);
+  font-family: var(--body);
   font-size: 10px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
@@ -264,6 +264,7 @@
   align-self: flex-start;
   margin-top: 8px;
   cursor: pointer;
+  font-family: var(--button);
   background: var(--antique-gold);
   color: var(--prussian-deep);
 }
@@ -362,7 +363,7 @@ body.thankyou-open .cursor-ring {
 }
 
 .thankyou-eyebrow {
-  font-family: var(--mono);
+  font-family: var(--body);
   font-size: 10px;
   letter-spacing: 0.32em;
   text-transform: uppercase;

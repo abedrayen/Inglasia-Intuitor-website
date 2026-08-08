@@ -9,6 +9,11 @@
   max-width: 1320px;
   margin: 0 auto;
 }
+.standards .platform-headline em {
+  color: var(--antique-gold);
+  font-style: italic;
+  font-weight: 400;
+}
 .standards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -38,15 +43,15 @@
 }
 .std-card .name em { font-style: italic; color: var(--antique-gold); }
 .std-card .ref {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
+  font-family: var(--body);
+  font-size: 12px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--admiralty);
   margin-bottom: 14px;
 }
 .std-card .desc {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.65;
   color: rgba(15, 26, 46, 0.66);
 }

@@ -8,18 +8,32 @@
   text-align: center;
 }
 .cta-strip-inner {
-  max-width: 980px;
+  max-width: 1320px;
   margin: 0 auto;
   position: relative;
+  text-align: center;
+}
+.cta-strip .section-head {
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 56px;
+  justify-content: center;
+}
+.cta-strip .section-label {
+  margin-left: 0;
 }
 .cta-strip h2 {
   font-family: var(--display);
   font-weight: 300;
-  font-size: clamp(44px, 6.5vw, 84px);
-  line-height: 1.02;
-  letter-spacing: -0.015em;
+  font-size: clamp(40px, 5.5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.012em;
   color: var(--prussian);
   margin-bottom: 28px;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .cta-strip h2 em { font-style: italic; color: var(--antique-gold); }
 .cta-strip p {
@@ -39,13 +53,14 @@
 .cta-strip .btn-primary { background: var(--prussian); color: var(--parchment); }
 .cta-strip .btn-primary:hover { background: var(--admiralty); box-shadow: 0 12px 32px rgba(18, 43, 79, 0.22); }
 .cta-strip .btn-ghost-dark {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
+  font-family: var(--button);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--prussian);
   text-decoration: none;
-  padding: 18px 4px;
+  padding: 16px 4px;
   border-bottom: 1px solid var(--prussian);
   transition: all 0.3s;
 }

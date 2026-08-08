@@ -12,9 +12,11 @@
   align-items: baseline;
   gap: 32px;
   padding-bottom: 28px;
-  margin-bottom: 80px;
+  margin-bottom: 56px;
   border-bottom: 1px solid var(--paper-line);
   position: relative;
+  width: 100%;
+  max-width: 1320px;
 }
 .section-head::after {
   content: '';
@@ -27,14 +29,14 @@
   font-family: var(--display);
   font-style: italic;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 28px;
   color: var(--antique-gold);
   letter-spacing: 0.02em;
 }
 .section-label {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.3em;
+  font-family: var(--body);
+  font-size: 13px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--admiralty);
   margin-left: auto;

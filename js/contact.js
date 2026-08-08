@@ -11,15 +11,8 @@ const overlay = document.getElementById('thankyouOverlay');
 const eyebrow = document.getElementById('thankyouEyebrow');
 const accent = document.getElementById('thankyouAccent');
 const lead = document.getElementById('thankyouLead');
-const form = document.getElementById('contactForm');
-const sendBtn = document.getElementById('contactSend');
-
-console.log('[contact] elements', {
-  overlay: !!overlay,
-  form: !!form,
-  sendBtn: !!sendBtn,
-  tabs: tabs.length,
-});
+const form = document.getElementById('form');
+const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
 
 // Ensure contact panel is visible (reveal can leave opacity: 0)
 document.querySelectorAll('.contact [data-reveal]').forEach((el) => {
@@ -154,87 +147,68 @@ window.addEventListener('hashchange', () => {
   else if (location.hash === '#meeting' || location.hash === '#panel') setMode('meeting');
 });
 
-const CONTACT_ENDPOINT = new URL('api/contact.json', window.location.href).href;
+const WEB3FORMS_KEY = '486bfad2-e72a-40e1-b33d-333c8aeec43f';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mkjwooey';
 
-async function submitMessage(e) {
-  console.log('[contact] submitMessage fired', e && e.type);
-  if (e) {
+async function submitViaWeb3Forms(formEl) {
+  const formData = new FormData(formEl);
+  formData.append('access_key', WEB3FORMS_KEY);
+
+  const response = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: formData,
+  });
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Web3Forms failed');
+  }
+}
+
+async function submitViaFormspree(formEl) {
+  const formData = new FormData(formEl);
+
+  const response = await fetch(FORMSPREE_ENDPOINT, {
+    method: 'POST',
+    body: formData,
+    headers: { Accept: 'application/json' },
+  });
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.error || data.message || 'Formspree failed');
+  }
+}
+
+if (form && submitBtn) {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    e.stopPropagation();
-  }
-  if (!form || !sendBtn) {
-    console.error('[contact] form or sendBtn missing');
-    return false;
-  }
 
-  if (!form.checkValidity()) {
-    console.warn('[contact] form invalid');
-    form.reportValidity();
-    return false;
-  }
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
 
-  const fields = new FormData(form);
-  const payload = {
-    name: String(fields.get('name') || '').trim(),
-    email: String(fields.get('email') || '').trim(),
-    company: String(fields.get('company') || '').trim(),
-    message: String(fields.get('message') || '').trim(),
-  };
-  console.log('[contact] payload', payload);
-  console.log('[contact] fetching', CONTACT_ENDPOINT);
+    const originalText = submitBtn.textContent;
 
-  const originalLabel = sendBtn.textContent;
-  sendBtn.disabled = true;
-  sendBtn.textContent = 'Sending…';
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
 
-  try {
-    const minDelay = new Promise((r) => setTimeout(r, 1200));
-    const request = fetch(CONTACT_ENDPOINT, {
-      method: 'GET',
-      cache: 'no-store',
-      headers: { Accept: 'application/json' },
-    });
-
-    const [res] = await Promise.all([request, minDelay]);
-    console.log('[contact] response', res.status, res.ok, res.url);
-
-    if (res.status === 200) {
+    try {
+      try {
+        await submitViaWeb3Forms(form);
+      } catch {
+        await submitViaFormspree(form);
+      }
       openThankYou('message');
       form.reset();
-    } else {
-      sendBtn.textContent = 'Failed — try again';
-      console.error('[contact] non-200 status', res.status);
-      await new Promise((r) => setTimeout(r, 1600));
+    } catch (error) {
+      alert('Something went wrong. Please try again.');
+    } finally {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
     }
-  } catch (err) {
-    console.error('[contact] fetch error', err);
-    sendBtn.textContent = 'Failed — try again';
-    await new Promise((r) => setTimeout(r, 1600));
-  } finally {
-    sendBtn.disabled = false;
-    sendBtn.textContent = originalLabel;
-  }
-
-  return false;
-}
-
-if (sendBtn) {
-  sendBtn.addEventListener('click', (e) => {
-    console.log('[contact] sendBtn click');
-    submitMessage(e);
   });
-} else {
-  console.error('[contact] #contactSend not found');
-}
-
-if (form) {
-  form.addEventListener('submit', (e) => {
-    console.log('[contact] form submit');
-    e.preventDefault();
-    submitMessage(e);
-  });
-} else {
-  console.error('[contact] #contactForm not found');
 }
 function parseCalendlyData(data) {
   if (!data) return null;
