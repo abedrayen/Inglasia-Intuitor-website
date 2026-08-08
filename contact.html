@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Contact — Inglasia Intuitor</title>
 <meta name="description" content="Book a walkthrough or write to Inglasia. Contact Inglasia Ltd at Great Portland Street, London." />
+<link rel="icon" href="assets/logo.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="assets/logo.ico" type="image/x-icon" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +14,7 @@
 
 <link rel="stylesheet" href="css/base.css?v=5">
 <link rel="stylesheet" href="css/cursor.css">
-<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/nav.css?v=12">
 <link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/sections.css">
 <link rel="stylesheet" href="css/contact.css">
@@ -31,15 +33,23 @@
     <img src="assets/logo.png" alt="Inglasia mark" />
     <span class="wordmark">Inglasia <em>Intuitor</em></span>
   </a>
-  <div class="nav-links">
-    <a href="index.html#platform">Platform</a>
-    <a href="index.html#button">The Button</a>
-    <a href="index.html#values">Values</a>
-    <a href="index.html#origin">Origin</a>
-    <a href="index.html#standards">Standards</a>
-    <a href="index.html#philosophy">Philosophy</a>
+  <div class="nav-panel" id="navPanel" aria-hidden="true">
+    <div class="nav-links">
+      <a href="index.html#platform">Platform</a>
+      <a href="index.html#button">The Button</a>
+      <a href="index.html#values">Values</a>
+      <a href="index.html#origin">Origin</a>
+      <a href="index.html#standards">Standards</a>
+      <a href="index.html#philosophy">Philosophy</a>
+    </div>
   </div>
-  <a href="#meeting" class="nav-cta">Request a walkthrough</a>
+  <div class="nav-actions">
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navPanel">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+  </div>
 </nav>
 
 <section class="contact" id="contact">
@@ -259,7 +269,7 @@
 </footer>
 
 <script src="js/cursor.js"></script>
-<script src="js/nav.js"></script>
+<script src="js/nav.js?v=11"></script>
 <script src="js/reveal.js"></script>
 <script src="js/contact.js?v=10"></script>
 <script src="js/scrollbar.js?v=2"></script>

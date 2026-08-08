@@ -4,22 +4,25 @@
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 100;
+  z-index: 2000; /* above film grain */
   padding: 18px 48px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 24px;
   background: rgba(10, 26, 51, 0);
   backdrop-filter: blur(0px);
   transition: background 0.4s ease, padding 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s;
   border-bottom: 1px solid transparent;
 }
-.nav.scrolled {
+.nav.scrolled,
+.nav.is-open {
   background: rgba(10, 26, 51, 0.78);
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
-  padding: 14px 48px;
   border-bottom: 1px solid rgba(184, 150, 58, 0.15);
+}
+.nav.scrolled {
+  padding: 14px 48px;
 }
 
 .nav-brand {
@@ -28,6 +31,9 @@
   gap: 14px;
   color: var(--parchment);
   text-decoration: none;
+  position: relative;
+  z-index: 3;
+  flex-shrink: 0;
 }
 .nav-brand img {
   width: 34px; height: 34px;
@@ -45,22 +51,37 @@
   color: var(--burnished-gold);
   font-weight: 400;
 }
+
+/* Links centered in the space between brand and actions */
+.nav-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
 .nav-links {
   display: flex;
-  gap: 38px;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
+  gap: 24px;
 }
 .nav-links a {
   font-family: var(--body);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 400;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(250, 247, 242, 0.62);
   text-decoration: none;
   position: relative;
   padding: 4px 0;
   transition: color 0.3s;
+  white-space: nowrap;
 }
 .nav-links a:hover { color: var(--burnished-gold); }
 .nav-links a::after {
@@ -72,22 +93,191 @@
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .nav-links a:hover::after { width: 100%; }
+
+/* CTA + hamburger always above the mobile drawer */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  margin-left: auto;
+  position: relative;
+  z-index: 3;
+}
+
 .nav-cta {
   font-family: var(--button);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border: 1px solid rgba(184, 150, 58, 0.55);
   color: var(--burnished-gold);
   text-decoration: none;
   transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .nav-cta:hover {
   background: var(--antique-gold);
   color: var(--prussian-deep);
   border-color: var(--antique-gold);
 }
+
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(184, 150, 58, 0.35);
+  background: rgba(10, 26, 51, 0.35);
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 18px;
+  height: 1px;
+  background: var(--burnished-gold);
+  transition: transform 0.35s ease, opacity 0.25s ease;
+  pointer-events: none;
+}
+.nav.is-open .nav-toggle-bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.nav.is-open .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+.nav.is-open .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Hamburger only when the bar is actually tight */
+@media (max-width: 960px) {
+  .nav {
+    padding: 14px 28px;
+  }
+  .nav.scrolled {
+    padding: 12px 28px;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+
+  /* Small dropdown under the hamburger — slides open */
+  .nav-panel {
+    flex: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 28px;
+    left: auto;
+    z-index: 4;
+    width: min(220px, calc(100vw - 36px));
+    margin: 0;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    background: rgba(10, 26, 51, 0.96);
+    border: 1px solid rgba(184, 150, 58, 0.22);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-sizing: border-box;
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.22s ease,
+      visibility 0.22s;
+  }
+  .nav.is-open .nav-panel {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: rgba(250, 247, 242, 0.78);
+    padding: 12px 18px;
+    width: 100%;
+    border-bottom: 1px solid rgba(184, 150, 58, 0.1);
+  }
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+  .nav-links a::after {
+    display: none;
+  }
+
+  .nav-cta {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+}
+
+/* Slightly tighter link gaps before hamburger kicks in */
+@media (max-width: 1100px) and (min-width: 961px) {
+  .nav-links {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav {
+    padding: 14px 18px;
+    gap: 10px;
+  }
+  .nav.scrolled {
+    padding: 12px 18px;
+  }
+  .nav-brand img {
+    width: 28px;
+    height: 28px;
+  }
+  .nav-brand .wordmark {
+    font-size: 20px;
+  }
+  .nav-panel {
+    right: 18px;
+  }
+  .nav-cta {
+    padding: 8px 12px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .nav-actions {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav-brand .wordmark {
+    font-size: 18px;
+  }
+  .nav-cta {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+}
+

@@ -12,12 +12,6 @@
   .promise-grid { grid-template-columns: 1fr; gap: 40px; }
 }
 @media (max-width: 640px) {
-  .nav { padding: 14px 18px; gap: 10px; }
-  .nav.scrolled { padding: 12px 18px; }
-  .nav-links { display: none; }
-  .nav-brand img { width: 28px; height: 28px; }
-  .nav-brand .wordmark { font-size: 20px; }
-  .nav-cta { padding: 10px 16px; font-size: 12px; letter-spacing: 0.04em; white-space: nowrap; }
   .section, .platform, .button-spot, .origin, .standards, .philosophy, .values, .cta-strip, .contact { padding-left: 22px; padding-right: 22px; }
   .hero-content { padding: 130px 22px 100px; }
   .hero .bracket { width: 50px; height: 50px; }
@@ -39,8 +33,4 @@
   .module-card.large .mod-name { font-size: 30px; }
   .demo-action { flex-direction: column; align-items: stretch; gap: 16px; padding-top: 28px; }
   .demo-action button { padding: 14px 16px; width: 100%; }
-}
-@media (max-width: 380px) {
-  .nav-brand .wordmark { font-size: 18px; }
-  .nav-cta { padding: 8px 12px; font-size: 11px; letter-spacing: 0.04em; }
 }
