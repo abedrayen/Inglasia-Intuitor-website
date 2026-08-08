@@ -1,5 +1,10 @@
 // Nav scroll state + mobile menu
 (function () {
+  const year = String(new Date().getFullYear());
+  document.querySelectorAll('.js-year').forEach((el) => {
+    el.textContent = year;
+  });
+
   const nav = document.getElementById('nav');
   const navToggle = document.getElementById('navToggle');
   const navPanel = document.getElementById('navPanel');
