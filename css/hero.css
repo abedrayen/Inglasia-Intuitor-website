@@ -76,7 +76,7 @@
   border: 1px solid rgba(184, 150, 58, 0.35);
   z-index: 2;
 }
-.hero .bracket.tr { top: 36px; right: 36px; border-left: none; border-bottom: none; }
+.hero .bracket.tr { top: 72px; right: 36px; border-left: none; border-bottom: none; }
 .hero .bracket.bl { bottom: 36px; left: 36px; border-right: none; border-top: none; }
 
 .hero-content {
