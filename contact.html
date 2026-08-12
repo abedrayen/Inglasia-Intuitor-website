@@ -126,11 +126,30 @@
         id="panel-meeting"
         aria-labelledby="tab-meeting"
       >
-        <!-- <p class="contact-pane-lead">Thirty minutes. Your hardest audit question. Live on your data shape.</p> -->
-        <div class="contact-calendly">
+        <div class="contact-meeting-gate" id="meetingGate">
+          <p class="contact-pane-lead">Enter your company email to see available times.</p>
+          <form class="contact-form" id="meetingGateForm" novalidate>
+            <div class="field">
+              <label for="meetingGateEmail">Work email</label>
+              <input
+                type="email"
+                id="meetingGateEmail"
+                name="meetingGateEmail"
+                autocomplete="email"
+                placeholder="jane@company.com"
+                required
+              />
+            </div>
+            <button type="submit" class="btn-primary">Continue to booking</button>
+          </form>
+        </div>
+
+        <div class="contact-calendly" id="calendlyWrap" hidden>
           <div
             class="calendly-inline-widget"
-            data-url="https://calendly.com/snadarajah18/book-a-demo-inglasia-intuitor?hide_gdpr_banner=1&hide_event_type_details=1&background_color=122b4f&text_color=faf7f2&primary_color=8fb4d4"
+            id="calendlyInlineWidget"
+            data-auto-load="false"
+            data-url="https://calendly.com/snadarajah18/book-a-demo-inglasia-intuitor?hide_gdpr_banner=1&hide_event_type_details=1&background_color=122b4f&text_color=A9C2D9&primary_color=8fb4d4"
           ></div>
         </div>
       </div>

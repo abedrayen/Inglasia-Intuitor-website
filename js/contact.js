@@ -13,6 +13,7 @@ const accent = document.getElementById('thankyouAccent');
 const lead = document.getElementById('thankyouLead');
 const form = document.getElementById('form');
 const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+const emailInput = form ? form.querySelector('#email') : null;
 
 // Ensure contact panel is visible (reveal can leave opacity: 0)
 document.querySelectorAll('.contact [data-reveal]').forEach((el) => {
@@ -147,6 +148,44 @@ window.addEventListener('hashchange', () => {
   else if (location.hash === '#meeting' || location.hash === '#panel') setMode('meeting');
 });
 
+// ---- Company-email validation (shared by the message form and the meeting gate) ----
+// Blocks free/personal webmail domains. Extend the list as needed — this is a
+// denylist, not an exhaustive company-domain check.
+const FREE_EMAIL_DOMAINS = new Set([
+  'gmail.com', 'googlemail.com',
+  'yahoo.com', 'yahoo.co.uk', 'yahoo.fr', 'ymail.com', 'rocketmail.com',
+  'hotmail.com', 'hotmail.co.uk', 'hotmail.fr',
+  'outlook.com', 'outlook.fr', 'live.com', 'live.co.uk', 'msn.com',
+  'aol.com',
+  'icloud.com', 'me.com', 'mac.com',
+  'protonmail.com', 'proton.me', 'pm.me',
+  'mail.com', 'gmx.com', 'gmx.net',
+  'yandex.com', 'yandex.ru',
+  'zoho.com',
+  'fastmail.com', 'tutanota.com', 'hey.com',
+  'inbox.com', 'rediffmail.com',
+  'qq.com', '163.com', '126.com',
+]);
+
+function getEmailDomain(email) {
+  const at = email.lastIndexOf('@');
+  if (at === -1) return '';
+  return email.slice(at + 1).trim().toLowerCase();
+}
+
+function isCompanyEmail(email) {
+  const domain = getEmailDomain(email);
+  if (!domain) return false;
+  return !FREE_EMAIL_DOMAINS.has(domain);
+}
+
+if (emailInput) {
+  // Clear the custom error as soon as the person edits the field again.
+  emailInput.addEventListener('input', () => {
+    emailInput.setCustomValidity('');
+  });
+}
+
 const WEB3FORMS_KEY = '486bfad2-e72a-40e1-b33d-333c8aeec43f';
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mkjwooey';
 
@@ -189,12 +228,24 @@ if (form && submitBtn) {
       return;
     }
 
+    if (emailInput && !isCompanyEmail(emailInput.value)) {
+      emailInput.setCustomValidity(
+        'Please use your company email address rather than a personal one.'
+      );
+      form.reportValidity();
+      emailInput.focus();
+      return;
+    }
+    if (emailInput) emailInput.setCustomValidity('');
+
     const originalText = submitBtn.textContent;
 
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
 
     try {
+      // Validated once here, so the check applies no matter which of the
+      // two providers below ends up handling the submission.
       try {
         await submitViaWeb3Forms(form);
       } catch {
@@ -210,6 +261,76 @@ if (form && submitBtn) {
     }
   });
 }
+
+// ---- Meeting gate: require a company email before the Calendly widget loads ----
+const meetingGate = document.getElementById('meetingGate');
+const meetingGateForm = document.getElementById('meetingGateForm');
+const meetingGateEmail = document.getElementById('meetingGateEmail');
+const calendlyWrap = document.getElementById('calendlyWrap');
+const calendlyWidgetEl = document.getElementById('calendlyInlineWidget');
+
+if (meetingGateEmail) {
+  meetingGateEmail.addEventListener('input', () => {
+    meetingGateEmail.setCustomValidity('');
+  });
+}
+
+// Calendly's widget.js loads with `async`, so window.Calendly may not exist
+// yet the instant the gate is passed. Poll briefly rather than assuming.
+function whenCalendlyReady(callback, attempt) {
+  attempt = attempt || 0;
+  if (window.Calendly && typeof window.Calendly.initInlineWidget === 'function') {
+    callback();
+    return;
+  }
+  if (attempt > 50) {
+    console.error('[contact] Calendly widget script did not load in time');
+    return;
+  }
+  setTimeout(() => whenCalendlyReady(callback, attempt + 1), 100);
+}
+
+function loadCalendlyWidget(email) {
+  if (!calendlyWrap || !calendlyWidgetEl) return;
+
+  meetingGate.hidden = true;
+  calendlyWrap.hidden = false;
+  calendlyWrap.removeAttribute('hidden');
+
+  const url = calendlyWidgetEl.dataset.url;
+
+  whenCalendlyReady(() => {
+    window.Calendly.initInlineWidget({
+      url,
+      parentElement: calendlyWidgetEl,
+      prefill: { email },
+    });
+  });
+}
+
+if (meetingGateForm) {
+  meetingGateForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if (!meetingGateForm.checkValidity()) {
+      meetingGateForm.reportValidity();
+      return;
+    }
+
+    if (!isCompanyEmail(meetingGateEmail.value)) {
+      meetingGateEmail.setCustomValidity(
+        'Please use your company email address rather than a personal one.'
+      );
+      meetingGateForm.reportValidity();
+      meetingGateEmail.focus();
+      return;
+    }
+
+    meetingGateEmail.setCustomValidity('');
+    loadCalendlyWidget(meetingGateEmail.value.trim());
+  });
+}
+
 function parseCalendlyData(data) {
   if (!data) return null;
   if (typeof data === 'string') {
