@@ -193,6 +193,7 @@ async function submitViaWeb3Forms(formEl) {
   const formData = new FormData(formEl);
   formData.append('access_key', WEB3FORMS_KEY);
 
+  console.log('[contact] trying Web3Forms...');
   const response = await fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     body: formData,
@@ -200,13 +201,21 @@ async function submitViaWeb3Forms(formEl) {
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
+    console.error('[contact] Web3Forms FAILED', {
+      status: response.status,
+      statusText: response.statusText,
+      data,
+    });
     throw new Error(data.message || 'Web3Forms failed');
   }
+
+  console.log('[contact] Web3Forms SUCCESS', data);
 }
 
 async function submitViaFormspree(formEl) {
   const formData = new FormData(formEl);
 
+  console.log('[contact] trying Formspree (fallback)...');
   const response = await fetch(FORMSPREE_ENDPOINT, {
     method: 'POST',
     body: formData,
@@ -215,8 +224,15 @@ async function submitViaFormspree(formEl) {
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
+    console.error('[contact] Formspree FAILED', {
+      status: response.status,
+      statusText: response.statusText,
+      data,
+    });
     throw new Error(data.error || data.message || 'Formspree failed');
   }
+
+  console.log('[contact] Formspree SUCCESS', data);
 }
 
 if (form && submitBtn) {
@@ -248,12 +264,16 @@ if (form && submitBtn) {
       // two providers below ends up handling the submission.
       try {
         await submitViaWeb3Forms(form);
-      } catch {
+        console.log('[contact] final result: sent via Web3Forms');
+      } catch (web3FormsError) {
+        console.warn('[contact] Web3Forms failed, falling back to Formspree', web3FormsError);
         await submitViaFormspree(form);
+        console.log('[contact] final result: sent via Formspree (fallback)');
       }
       openThankYou('message');
       form.reset();
     } catch (error) {
+      console.error('[contact] BOTH providers failed', error);
       alert('Something went wrong. Please try again.');
     } finally {
       submitBtn.textContent = originalText;
