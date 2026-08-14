@@ -192,6 +192,45 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mkjwooey';
 const STATICFORMS_KEY = 'sf_f9dc91fa5772e8dfdffb8289';
 const STATICFORMS_ENDPOINT = 'https://api.staticforms.dev/submit';
 
+// EmailJS (SendGrid service) — replace with your Public Key from
+// EmailJS > Account > General.
+const EMAILJS_PUBLIC_KEY = 'XcJx1DJo8s_3Nydg8';
+const EMAILJS_SERVICE_ID = 'service_j1fp6m2';
+const EMAILJS_TEMPLATE_ID = 'template_t62w9gh';
+
+if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+  window.emailjs.init(EMAILJS_PUBLIC_KEY);
+} else if (!window.emailjs) {
+  console.warn('[contact] EmailJS SDK not loaded — add the script tag before contact.js');
+}
+
+async function submitViaEmailJS(formEl) {
+  if (!window.emailjs) {
+    throw new Error('EmailJS SDK not loaded');
+  }
+
+  const formData = new FormData(formEl);
+  const params = {
+    name: formData.get('name') || '',
+    email: formData.get('email') || '',
+    company: formData.get('company') || '',
+    message: formData.get('message') || '',
+  };
+
+  console.log('[contact] trying EmailJS (SendGrid)...', params);
+  try {
+    const result = await window.emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      params
+    );
+    console.log('[contact] EmailJS SUCCESS', result);
+  } catch (err) {
+    console.error('[contact] EmailJS FAILED', err);
+    throw new Error((err && err.text) || 'EmailJS failed');
+  }
+}
+
 async function submitViaStaticForms(formEl) {
   const formData = new FormData(formEl);
   formData.append('apiKey', STATICFORMS_KEY);
@@ -290,17 +329,23 @@ if (form && submitBtn) {
       // Validated once here, so the check applies no matter which of the
       // two providers below ends up handling the submission.
       try {
-        await submitViaStaticForms(form);
-        console.log('[contact] final result: sent via StaticForms');
-      } catch (staticFormsError) {
-        console.warn('[contact] StaticForms failed, falling back to Web3Forms', staticFormsError);
+        await submitViaEmailJS(form);
+        console.log('[contact] final result: sent via EmailJS (SendGrid)');
+      } catch (emailJsError) {
+        console.warn('[contact] EmailJS failed, falling back to StaticForms', emailJsError);
         try {
-          await submitViaWeb3Forms(form);
-          console.log('[contact] final result: sent via Web3Forms (fallback)');
-        } catch (web3FormsError) {
-          console.warn('[contact] Web3Forms failed, falling back to Formspree', web3FormsError);
-          await submitViaFormspree(form);
-          console.log('[contact] final result: sent via Formspree (fallback)');
+          await submitViaStaticForms(form);
+          console.log('[contact] final result: sent via StaticForms (fallback)');
+        } catch (staticFormsError) {
+          console.warn('[contact] StaticForms failed, falling back to Web3Forms', staticFormsError);
+          try {
+            await submitViaWeb3Forms(form);
+            console.log('[contact] final result: sent via Web3Forms (fallback)');
+          } catch (web3FormsError) {
+            console.warn('[contact] Web3Forms failed, falling back to Formspree', web3FormsError);
+            await submitViaFormspree(form);
+            console.log('[contact] final result: sent via Formspree (fallback)');
+          }
         }
       }
       openThankYou('message');
