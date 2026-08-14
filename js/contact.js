@@ -189,6 +189,33 @@ if (emailInput) {
 const WEB3FORMS_KEY = '486bfad2-e72a-40e1-b33d-333c8aeec43f';
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mkjwooey';
 
+const STATICFORMS_KEY = 'sf_f9dc91fa5772e8dfdffb8289';
+const STATICFORMS_ENDPOINT = 'https://api.staticforms.dev/submit';
+
+async function submitViaStaticForms(formEl) {
+  const formData = new FormData(formEl);
+  formData.append('apiKey', STATICFORMS_KEY);
+  formData.append('subject', 'Helmi Khiari submission');
+
+  console.log('[contact] trying StaticForms...');
+  const response = await fetch(STATICFORMS_ENDPOINT, {
+    method: 'POST',
+    body: formData,
+  });
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    console.error('[contact] StaticForms FAILED', {
+      status: response.status,
+      statusText: response.statusText,
+      data,
+    });
+    throw new Error(data.message || data.error || 'StaticForms failed');
+  }
+
+  console.log('[contact] StaticForms SUCCESS', data);
+}
+
 async function submitViaWeb3Forms(formEl) {
   const formData = new FormData(formEl);
   formData.append('access_key', WEB3FORMS_KEY);
@@ -263,12 +290,18 @@ if (form && submitBtn) {
       // Validated once here, so the check applies no matter which of the
       // two providers below ends up handling the submission.
       try {
-        await submitViaWeb3Forms(form);
-        console.log('[contact] final result: sent via Web3Forms');
-      } catch (web3FormsError) {
-        console.warn('[contact] Web3Forms failed, falling back to Formspree', web3FormsError);
-        await submitViaFormspree(form);
-        console.log('[contact] final result: sent via Formspree (fallback)');
+        await submitViaStaticForms(form);
+        console.log('[contact] final result: sent via StaticForms');
+      } catch (staticFormsError) {
+        console.warn('[contact] StaticForms failed, falling back to Web3Forms', staticFormsError);
+        try {
+          await submitViaWeb3Forms(form);
+          console.log('[contact] final result: sent via Web3Forms (fallback)');
+        } catch (web3FormsError) {
+          console.warn('[contact] Web3Forms failed, falling back to Formspree', web3FormsError);
+          await submitViaFormspree(form);
+          console.log('[contact] final result: sent via Formspree (fallback)');
+        }
       }
       openThankYou('message');
       form.reset();
