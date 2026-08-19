@@ -318,7 +318,7 @@
 
 /* Signature block — image above name, matching letter format */
 .blog-signature {
-  margin-top: 34px;
+  /* margin-top: 34px; */
   padding-top: 0;
   border-top: none;
   display: flex;
