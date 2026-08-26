@@ -218,6 +218,16 @@
   text-align: center;
 }
 
+.blog-post-author-line {
+  max-width: 620px;
+  margin: 1.35em auto 0;
+  color: rgba(15, 26, 46, 0.72);
+  font-family: var(--body);
+  font-size: clamp(12px, 1.35vw, 14px);
+  line-height: 1.6;
+  text-align: center;
+}
+
 .blog-post-body {
   font-size: 15px;
   line-height: 1.85;
@@ -230,6 +240,279 @@
 
 .blog-post-body p:last-child {
   margin-bottom: 0;
+}
+
+/* Video article extension — retains the existing Inglasia editorial palette, spacing and three-font system. */
+.blog-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 2.15em;
+  overflow: hidden;
+  background: var(--prussian-deep);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: 0 14px 34px rgba(18, 43, 79, 0.12);
+}
+
+.blog-video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.blog-video-cover {
+  appearance: none;
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: clamp(22px, 4vw, 42px);
+  border: 0;
+  color: var(--parchment);
+  cursor: pointer;
+  isolation: isolate;
+  text-align: left;
+  background: var(--prussian-deep);
+}
+
+.blog-video-cover::before,
+.blog-video-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.blog-video-cover::before {
+  z-index: -2;
+  background-image: var(--video-thumbnail);
+  background-position: center;
+  background-size: cover;
+  filter: saturate(0.72) contrast(1.04);
+  transform: scale(1.01);
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s ease;
+}
+
+.blog-video-cover::after {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(10, 26, 51, 0.96) 0%, rgba(10, 26, 51, 0.82) 38%, rgba(10, 26, 51, 0.28) 82%, rgba(10, 26, 51, 0.42) 100%),
+    linear-gradient(0deg, rgba(10, 26, 51, 0.38), transparent 56%);
+}
+
+.blog-video-cover-content {
+  display: flex;
+  align-self: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 470px;
+}
+
+.blog-video-cover-kicker,
+.blog-video-cover-speakers,
+.blog-video-duration {
+  font-family: var(--body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.blog-video-cover-kicker {
+  margin-bottom: 10px;
+  color: var(--burnished-gold);
+}
+
+.blog-video-cover-title {
+  font-family: var(--display);
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.96;
+}
+
+.blog-video-cover-speakers {
+  margin-top: 15px;
+  color: rgba(250, 247, 242, 0.78);
+  letter-spacing: 0.1em;
+}
+
+.blog-video-play-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 24px;
+  color: var(--parchment);
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.blog-video-play-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(250, 247, 242, 0.72);
+  border-radius: 50%;
+  color: var(--prussian-deep);
+  background: linear-gradient(135deg, var(--burnished-gold), var(--antique-gold));
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+}
+
+.blog-video-play-icon svg {
+  width: 21px;
+  height: 21px;
+  margin-left: 2px;
+}
+
+.blog-video-duration {
+  position: absolute;
+  right: clamp(18px, 3vw, 34px);
+  bottom: clamp(18px, 3vw, 28px);
+  color: rgba(250, 247, 242, 0.78);
+  letter-spacing: 0.1em;
+}
+
+.blog-video-cover:hover::before {
+  filter: saturate(0.88) contrast(1.08);
+  transform: scale(1.055);
+}
+
+.blog-video-cover:hover .blog-video-play-icon {
+  box-shadow: 0 11px 28px rgba(0, 0, 0, 0.28);
+  transform: scale(1.08);
+}
+
+.blog-video-cover:focus-visible {
+  outline: 3px solid var(--burnished-gold);
+  outline-offset: -6px;
+}
+
+.blog-video-cover:active .blog-video-play-icon {
+  transform: scale(0.96);
+}
+
+.blog-contact-cta {
+  max-width: 520px;
+  margin: 2.75em auto 2.9em;
+  text-align: center;
+}
+
+.blog-contact-cta > p {
+  max-width: 460px;
+  margin: 0 auto 1.2em;
+  color: rgba(15, 26, 46, 0.75);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.blog-contact-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0.9em 1.55em;
+  border: 1px solid var(--antique-gold);
+  color: var(--parchment);
+  background: var(--prussian);
+  box-shadow: 0 10px 20px rgba(18, 43, 79, 0.18);
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.blog-contact-button span {
+  color: var(--burnished-gold);
+  font-size: 17px;
+  line-height: 0;
+  transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.blog-contact-button:hover {
+  background: var(--admiralty);
+  box-shadow: 0 13px 26px rgba(18, 43, 79, 0.26);
+  transform: translateY(-2px);
+}
+
+.blog-contact-button:hover span {
+  transform: translateX(3px);
+}
+
+.blog-contact-button:focus-visible {
+  outline: 3px solid var(--burnished-gold);
+  outline-offset: 4px;
+}
+
+.blog-contact-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* SEO article extension — semantic headings and supporting resources retain the established Inglasia editorial hierarchy. */
+.blog-post-body h2 {
+  font-family: var(--display);
+  font-size: clamp(27px, 3.3vw, 34px);
+  font-weight: 400;
+  line-height: 1.16;
+  color: var(--prussian);
+  margin: 2.1em 0 0.55em;
+}
+
+.blog-post-body h3 {
+  font-family: var(--display);
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--admiralty);
+  margin: 0 0 0.4em;
+}
+
+.blog-video-caption {
+  margin: -0.65em 0 2.25em !important;
+  color: rgba(15, 26, 46, 0.66);
+  font-family: var(--body);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.blog-resource-link {
+  color: var(--admiralty);
+  font-weight: 500;
+  text-decoration-color: rgba(28, 58, 95, 0.35);
+  text-underline-offset: 0.18em;
+}
+
+.blog-resource-link:hover {
+  color: var(--antique-gold);
+  text-decoration-color: var(--antique-gold);
+}
+
+.blog-faq {
+  margin: 2.7em 0 2.45em;
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.blog-faq > h2 {
+  margin-top: 1.15em;
+}
+
+.blog-faq-item {
+  padding: 1.05em 0 0.25em;
+  border-bottom: 1px solid rgba(184, 150, 58, 0.28);
+}
+
+.blog-faq-item p {
+  margin-bottom: 0.9em;
 }
 
 .blog-post-body .salutation {
@@ -413,5 +696,58 @@
 
   .blog-signature-img {
     height: 48px;
+  }
+
+  .blog-video {
+    margin-bottom: 1.8em;
+  }
+
+  .blog-video-cover {
+    padding: 22px;
+  }
+
+  .blog-video-cover-title {
+    font-size: clamp(30px, 9.2vw, 40px);
+  }
+
+  .blog-video-cover-speakers {
+    max-width: 230px;
+  }
+
+  .blog-video-play-control {
+    margin-top: 18px;
+  }
+
+  .blog-video-play-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .blog-video-duration {
+    right: 18px;
+    bottom: 20px;
+  }
+
+  .blog-contact-cta {
+    margin: 2.35em auto 2.55em;
+  }
+
+  .blog-contact-button {
+    min-width: min(100%, 250px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-video-cover::before,
+  .blog-video-play-icon {
+    transition: none;
+  }
+}
+  .blog-post-body h2 {
+    margin-top: 1.8em;
+  }
+
+  .blog-video-caption {
+    margin-bottom: 2em !important;
   }
 }
