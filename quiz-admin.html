@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" data-scrollbar="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Inglasia Intuitor</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600&family=Inter+Tight:wght@300;400;500;600&display=block" rel="stylesheet">
+<link rel="stylesheet" href="css/scrollbar.css?v=2">
+<link rel="stylesheet" href="css/admin.css?v=23">
+</head>
+<body>
+<main class="admin-bg">
+
+  <!-- Auth check in progress -->
+  <div id="dashboard-loading" class="admin-fullpage-state" role="status">
+    <div class="admin-spinner" aria-hidden="true"></div>
+    <p>Loading dashboard…</p>
+  </div>
+
+  <!-- Shown if the Supabase config placeholders haven't been filled in yet -->
+  <div id="dashboard-config-error" class="admin-fullpage-state" style="display:none;" role="alert">
+    <div class="admin-config-error">
+      <strong>Admin dashboard isn't configured yet.</strong><br><br>
+      Set <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> in
+      <code>js/supabase-config.js</code> to your Supabase project's URL and
+      anon/publishable key — see <code>supabase/admin_setup.md</code>.
+    </div>
+  </div>
+
+  <!-- Main app, hidden until the session is confirmed -->
+  <div id="dashboard-app" class="admin-layout" hidden>
+
+    <nav class="admin-sidebar" id="admin-sidebar" aria-label="Admin">
+      <div class="admin-sidebar-head">
+        <div class="admin-brand">
+          <img src="assets/logo.png" alt="Inglasia mark">
+          <div class="admin-brand-text">
+            <span class="admin-brand-name">Inglasia <em>Intuitor</em></span>
+            <span class="admin-brand-tag">Admin</span>
+          </div>
+        </div>
+      </div>
+      <ul class="admin-nav">
+        <li>
+          <a href="quiz-admin.html" class="admin-nav-link is-active" aria-current="page">
+            <svg class="admin-nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <rect x="1.5" y="1.5" width="6" height="6" rx="1.2" stroke="currentColor" stroke-width="1.3"/>
+              <rect x="8.5" y="1.5" width="6" height="9" rx="1.2" stroke="currentColor" stroke-width="1.3"/>
+              <rect x="1.5" y="9.5" width="6" height="5" rx="1.2" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+            <span class="admin-nav-label">Dashboard</span>
+          </a>
+        </li>
+      </ul>
+      <div class="admin-sidebar-foot">
+        <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Collapse sidebar" aria-expanded="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </nav>
+    <div class="nav-overlay" id="nav-overlay" hidden></div>
+
+    <div class="admin-content">
+
+    <header class="admin-topbar">
+      <div class="admin-shell admin-topbar-inner">
+        <div class="admin-topbar-chrome">
+          <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-controls="admin-sidebar" aria-expanded="false">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M3.5 5.5h13M3.5 10h13M3.5 14.5h13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div class="admin-brand admin-brand-header">
+            <img src="assets/logo.png" alt="">
+            <div class="admin-brand-text">
+              <span class="admin-brand-name">Inglasia <em>Intuitor</em></span>
+            </div>
+          </div>
+          <div class="admin-topbar-right">
+            <span class="admin-user-email" id="admin-user-email"></span>
+            <button type="button" class="btn-ghost btn-logout" id="logout-btn" aria-label="Log Out">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M6.5 3.5H4.2A1.2 1.2 0 0 0 3 4.7v6.6A1.2 1.2 0 0 0 4.2 12.5h2.3M9.5 11l3-3-3-3M12.5 8H6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="btn-logout-text">Log Out</span>
+            </button>
+          </div>
+        </div>
+        <div class="admin-topbar-heading">
+          <span class="admin-topbar-eyebrow">Admin</span>
+          <h1 class="admin-topbar-title">Dashboard</h1>
+          <p class="admin-topbar-subtitle">Overview of quiz participation and quality maturity scores</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-main admin-shell">
+
+      <!-- Summary cards -->
+      <div class="stat-grid">
+        <article class="admin-panel stat-card">
+          <div class="stat-card-top">
+            <span class="stat-card-label">Total Participants</span>
+            <span class="stat-card-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 13c0-2.2 1.8-4 4-4s4 1.8 4 4M10.5 5.5c1.1.2 2 1.1 2 2.3 0 1-.6 1.9-1.5 2.3M12.5 13c0-1.7-1.1-3.1-2.6-3.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="6" cy="6" r="2.3" stroke="currentColor" stroke-width="1.3"/></svg>
+            </span>
+          </div>
+          <div class="stat-card-value" id="stat-total">—</div>
+          <div class="stat-card-meta" id="stat-total-meta"></div>
+        </article>
+        <article class="admin-panel stat-card">
+          <div class="stat-card-top">
+            <span class="stat-card-label">Average Score</span>
+            <span class="stat-card-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 13.5h12M4.5 13.5V8M8 13.5V4.5M11.5 13.5V6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+          <div class="stat-card-value" id="stat-average">—</div>
+          <div class="stat-card-meta">Overall quiz performance</div>
+        </article>
+        <article class="admin-panel stat-card">
+          <div class="stat-card-top">
+            <span class="stat-card-label">Today's Participants</span>
+            <span class="stat-card-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2.5" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 6h12M5 1.5v2M11 1.5v2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+          <div class="stat-card-value" id="stat-today">—</div>
+          <div class="stat-card-meta" id="stat-today-meta"></div>
+        </article>
+        <article class="admin-panel stat-card">
+          <div class="stat-card-top">
+            <span class="stat-card-label">Latest Submission</span>
+            <span class="stat-card-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.8V8l2.4 1.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="stat-card-value is-small" id="stat-latest">—</div>
+          <div class="stat-card-meta" id="stat-latest-meta"></div>
+        </article>
+      </div>
+
+      <!-- Analytics -->
+      <div class="admin-section-head">
+        <h2 class="admin-section-title">Analytics</h2>
+      </div>
+      <p class="login-error" id="stats-error" style="display:none;" role="alert">
+        Couldn't load analytics. <button type="button" class="link-btn" id="retry-stats-btn">Retry</button>
+      </p>
+      <div class="chart-grid">
+        <section class="admin-panel chart-card" aria-labelledby="category-chart-title">
+          <h3 class="chart-card-title" id="category-chart-title">Category Performance</h3>
+          <div id="category-chart"></div>
+        </section>
+        <section class="admin-panel chart-card" aria-labelledby="time-chart-title">
+          <h3 class="chart-card-title" id="time-chart-title">Participants Over Time</h3>
+          <div id="time-chart"></div>
+        </section>
+      </div>
+
+      <!-- Controls -->
+      <div class="admin-section-head">
+        <h2 class="admin-section-title">Recent Submissions</h2>
+      </div>
+      <div class="admin-panel controls-bar">
+        <div class="control-search">
+          <span class="control-search-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.25" stroke="currentColor" stroke-width="1.4"/><path d="M10.2 10.2L13.5 13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </span>
+          <input type="search" id="search-input" placeholder="Search by email…" aria-label="Search by email">
+        </div>
+        <div class="control-select">
+          <select id="score-filter" aria-label="Filter by overall score">
+            <option value="">All Scores</option>
+            <option value="0-24">0–24%</option>
+            <option value="25-49">25–49%</option>
+            <option value="50-74">50–74%</option>
+            <option value="75-100">75–100%</option>
+          </select>
+        </div>
+        <div class="control-select">
+          <select id="date-filter" aria-label="Filter by date">
+            <option value="all">All Time</option>
+            <option value="today">Today</option>
+            <option value="7d">Last 7 Days</option>
+            <option value="30d">Last 30 Days</option>
+            <option value="custom">Custom Range</option>
+          </select>
+        </div>
+        <div class="control-select" id="custom-date-range">
+          <input type="date" id="custom-from" aria-label="From date">
+          <span>to</span>
+          <input type="date" id="custom-to" aria-label="To date">
+        </div>
+        <div class="sort-group">
+          <label for="sort-by">Sort by</label>
+          <div class="control-select">
+            <select id="sort-by">
+              <option value="created_at">Date</option>
+              <option value="overall_score">Overall Score</option>
+              <option value="email">Email</option>
+            </select>
+          </div>
+          <button type="button" class="btn-ghost" id="sort-dir-btn">↓ Desc</button>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="admin-panel table-panel">
+        <p class="table-cap-notice" id="table-cap-notice">Showing the first 500 matching results — narrow your search or date filter to see more precisely.</p>
+
+        <div class="table-state is-loading" id="table-loading" style="display:block;" role="status">
+          <div class="admin-spinner" aria-hidden="true"></div>
+          <p>Loading results…</p>
+        </div>
+        <div class="table-state is-error" id="table-error" role="alert">
+          <p>Couldn't load quiz results.</p>
+          <button type="button" class="btn-ghost" id="retry-table-btn">Retry</button>
+        </div>
+        <div class="table-state" id="table-empty"></div>
+
+        <div id="table-wrap" style="display:none;">
+          <div class="table-scroll">
+            <table class="results-table">
+              <thead>
+                <tr>
+                  <th>Participant</th>
+                  <th>Overall Score</th>
+                  <th>Document Control</th>
+                  <th>CAPA &amp; NCRs</th>
+                  <th>Audit Readiness</th>
+                  <th>Training</th>
+                  <th>Change Mgmt</th>
+                  <th>Reporting</th>
+                  <th>User Adoption</th>
+                  <th>Submitted</th>
+                </tr>
+              </thead>
+              <tbody id="results-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <nav class="pagination" id="pagination" aria-label="Results pagination"></nav>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Participant detail modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-panel admin-panel" role="dialog" aria-modal="true" aria-labelledby="modal-email">
+    <button type="button" class="modal-close" id="modal-close" aria-label="Close">✕</button>
+
+    <div class="modal-header">
+      <p class="modal-eyebrow">Participant</p>
+      <h3 class="modal-email" id="modal-email"></h3>
+    </div>
+
+    <div class="modal-score-ring" id="modal-score-ring">
+      <span class="modal-score-value" id="modal-score-value"></span>
+      <span class="modal-score-label">Overall Score</span>
+    </div>
+
+    <p class="modal-subtitle">Quality System Breakdown</p>
+    <div id="modal-breakdown"></div>
+
+    <div class="modal-footer">Date completed: <span id="modal-date"></span></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/admin-auth.js"></script>
+<script src="js/admin-dashboard.js"></script>
+<script src="js/scrollbar.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" data-scrollbar="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Sign In — Inglasia Intuitor</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600&family=Inter+Tight:wght@300;400;500;600&display=block" rel="stylesheet">
+<link rel="stylesheet" href="css/scrollbar.css?v=2">
+<link rel="stylesheet" href="css/admin.css?v=14">
+</head>
+<body>
+<main class="admin-bg">
+
+  <!-- Checking for an existing session -->
+  <div id="login-loading" class="admin-fullpage-state">
+    <div class="admin-spinner" aria-hidden="true"></div>
+    <p>Checking your session…</p>
+  </div>
+
+  <!-- Shown if the Supabase config placeholders haven't been filled in yet -->
+  <div id="login-config-error" class="admin-fullpage-state" style="display:none;">
+    <div class="admin-config-error">
+      <strong>Admin dashboard isn't configured yet.</strong><br><br>
+      Set <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> in
+      <code>js/supabase-config.js</code> to your Supabase project's URL and
+      anon/publishable key, then run <code>supabase/quiz_results.sql</code> and
+      create an admin user — see <code>supabase/admin_setup.md</code>.
+    </div>
+  </div>
+
+  <div class="login-shell">
+    <div class="login-card admin-panel" id="login-card" style="display:none;">
+      <div class="admin-brand">
+        <img src="assets/logo.png" alt="Inglasia mark">
+        <div class="admin-brand-text">
+          <span class="admin-brand-name">Inglasia <em>Intuitor</em></span>
+          <span class="admin-brand-tag">Admin</span>
+        </div>
+      </div>
+
+      <p class="login-eyebrow">Restricted Access</p>
+      <h1 class="login-title">Sign in to continue</h1>
+
+      <form id="login-form" class="login-form" novalidate>
+        <div class="login-field">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" name="email" placeholder="you@inglasiaintuitor.com" autocomplete="username" required>
+        </div>
+        <div class="login-field">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+        <p class="login-error" id="login-error" style="display:none;"></p>
+        <button type="submit" class="btn-gold" id="login-submit">Sign In</button>
+      </form>
+
+      <p class="login-footnote">Admin accounts are provisioned by the Inglasia team. There is no self-service registration.</p>
+    </div>
+  </div>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/admin-auth.js"></script>
+<script src="js/admin-login.js"></script>
+<script src="js/scrollbar.js"></script>
+</body>
+</html>

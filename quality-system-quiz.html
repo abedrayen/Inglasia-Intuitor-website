@@ -17,7 +17,10 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
 <meta property="og:image:alt" content="Inglasia Intuitor quality-system pain point assessment">
-<link rel="icon" href="assets/logo.ico" type="image/x-icon">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Existing site font system only: Cormorant Garamond, Lora and Inter Tight. -->
@@ -618,8 +621,20 @@ body::after {
     <p class="header-sub">7 questions that reveal where your compliance process is leaking time, money and talent.</p>
   </div>
 
+  <!-- EMAIL GATE -->
+  <div id="email-gate">
+    <h2 class="gate-title">Before You Begin</h2>
+    <p class="gate-sub">Enter your email to receive your personalised Pain Score results.</p>
+    <form id="email-gate-form" class="gate-form" novalidate>
+      <input type="email" id="gate-email" class="gate-input" placeholder="you@company.com" autocomplete="email" required>
+      <button type="submit" class="btn-start">Start Assessment →</button>
+    </form>
+    <p class="gate-error" id="gate-error" style="display:none;">Please enter a valid email address.</p>
+    <p class="intro-disclaimer">Takes 2 minutes · Instant results · Your answers stay private</p>
+  </div>
+
   <!-- INTRO -->
-  <div id="intro">
+  <div id="intro" style="display:none;">
     <div class="intro-stats">
       <div class="intro-stat">
         <span class="intro-stat-num">73%</span>
@@ -635,7 +650,7 @@ body::after {
       </div>
     </div>
     <button class="btn-start" onclick="startQuiz()">Discover Your Pain Score →</button>
-    <p class="intro-disclaimer">Takes 2 minutes · No registration required · Instant results</p>
+    <p class="intro-disclaimer">Takes 2 minutes · Instant results · Your answers stay private</p>
   </div>
 
   <!-- Progress -->
@@ -785,8 +800,21 @@ body::after {
 
 </div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 const answers = {};
+let userEmail = '';
+let resultsSubmitted = false;
+
+// --- Supabase setup (placeholders — replace with your real project values) ---
+const SUPABASE_URL = 'https://inhxaxyubvhitcimiahu.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluaHhheHl1YnZoaXRjaW1pYWh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgzNjEyMjksImV4cCI6MjEwMzkzNzIyOX0.g7H8YWgErqs0eq2aoVPbdRVC0HCEiFSGUYU-MnRlPGI';
+const supabaseClient = (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && window.supabase)
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+    })
+  : null;
+
 const categories = ['Document Control','CAPA & NCRs','Audit Readiness','Training','Change Mgmt','Reporting','User Adoption'];
 const catDescriptions = [
   'Version chaos costs hours. One wrong document can trigger a major NC.',
@@ -797,6 +825,33 @@ const catDescriptions = [
   'No data visibility means decisions made on gut, not evidence.',
   'If people avoid your QMS, it\'s not a QMS — it\'s shelfware.'
 ];
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+document.getElementById('email-gate-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const input = document.getElementById('gate-email');
+  const errorEl = document.getElementById('gate-error');
+  const value = input.value.trim();
+
+  if (!EMAIL_RE.test(value)) {
+    input.classList.add('invalid');
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  input.classList.remove('invalid');
+  errorEl.style.display = 'none';
+  userEmail = value;
+
+  document.getElementById('email-gate').style.display = 'none';
+  document.getElementById('intro').style.display = 'block';
+});
+
+document.getElementById('gate-email').addEventListener('input', function () {
+  this.classList.remove('invalid');
+  document.getElementById('gate-error').style.display = 'none';
+});
 
 function startQuiz() {
   document.getElementById('intro').style.display = 'none';
@@ -834,6 +889,8 @@ function updateProgress(q) {
 
 function showResults() {
   if (!answers['q7']) return;
+  if (resultsSubmitted) return;
+  resultsSubmitted = true;
 
   // Hide quiz
   document.getElementById('q7').classList.remove('active');
@@ -875,8 +932,10 @@ function showResults() {
   // Pain point grid
   const grid = document.getElementById('pp-grid');
   grid.innerHTML = '';
+  const catPct = [];
   catScores.forEach((pain, i) => {
     const pct = Math.round((pain / 3) * 100);
+    catPct.push(pct);
     const color = pct >= 67 ? '#c94040' : pct >= 34 ? '#c9963a' : '#3a8b5a';
     grid.innerHTML += `
       <div class="pp-item">
@@ -891,6 +950,22 @@ function showResults() {
 
   document.getElementById('results').classList.add('active');
 
+  // Save email + score breakdown (fire-and-forget — never blocks the result screen)
+  if (supabaseClient) {
+    supabaseClient.from('quiz_results').insert({
+      email: userEmail,
+      document_control: catPct[0],
+      capa_ncrs: catPct[1],
+      audit_readiness: catPct[2],
+      training: catPct[3],
+      change_management: catPct[4],
+      reporting: catPct[5],
+      user_adoption: catPct[6]
+    }).then(({ error }) => {
+      if (error) console.warn('Quiz result save failed:', error.message);
+    }).catch(err => console.warn('Quiz result save failed:', err));
+  }
+
   // Animate bars after render
   setTimeout(() => {
     document.querySelectorAll('.pp-bar-fill').forEach(b => {
@@ -900,6 +975,7 @@ function showResults() {
 }
 
 function restartQuiz() {
+  resultsSubmitted = false;
   Object.keys(answers).forEach(k => delete answers[k]);
   document.querySelectorAll('.q-card').forEach(c => {
     c.classList.remove('active');
