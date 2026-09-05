@@ -604,7 +604,9 @@ body::after { display: none; }
 
 .gate-input {
   flex: 1;
-  padding: 16px 18px;
+  height: 50px;
+  box-sizing: border-box;
+  padding: 0 18px;
   border: 1px solid rgba(184, 150, 58, 0.26);
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.035);
@@ -613,6 +615,13 @@ body::after { display: none; }
   font-size: 14px;
   font-weight: 300;
   transition: border-color 180ms ease, background 180ms ease;
+}
+
+.gate-form .btn-start {
+  flex-shrink: 0;
+  height: 50px;
+  box-sizing: border-box;
+  padding: 0 32px;
 }
 
 .gate-input::placeholder { color: rgba(243, 234, 217, 0.4); }
