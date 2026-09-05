@@ -39,6 +39,16 @@ body {
   cursor: default;
 }
 
+/* ====== Trademark mark ====== */
+.tm {
+  font-size: 0.6em;
+  font-style: normal;
+  font-weight: 400;
+  vertical-align: super;
+  line-height: 0;
+}
+.tm-gold { color: var(--antique-gold); }
+
 /* ====== Film grain overlay (entire page) ====== */
 body::before {
   content: '';
