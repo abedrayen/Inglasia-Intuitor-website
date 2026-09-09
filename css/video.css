@@ -1,0 +1,214 @@
+/* ============================================================
+   VIDEO — hero trigger + floating trigger that expand in place
+   into the player
+   ============================================================ */
+
+/* "Watch it in action" hero button reuses .btn-ghost, unchanged visually —
+   it's a <button> now (not an <a>), so only the UA button chrome that
+   .btn-ghost doesn't already override needs resetting. Its border-bottom
+   and :hover styling stay exactly as defined by .btn-ghost. */
+button.btn-ghost.video-trigger {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+  font: inherit;
+}
+
+/* Floating play trigger, pinned to the corner, reachable from anywhere */
+.video-fab {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 1500;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--antique-gold);
+  border: none;
+  box-shadow: 0 14px 36px rgba(18, 43, 79, 0.32), 0 0 0 0 rgba(184, 150, 58, 0.5);
+  animation: video-fab-pulse 3.2s ease-out infinite;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.35s, box-shadow 0.35s;
+}
+.video-fab svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--prussian-deep);
+  margin-left: 3px;
+}
+/* Shows and hides on its own on a loop (a recurring "look here" nudge),
+   and hovering/focusing the button always forces it visible on top of
+   that loop, whatever phase it's in. */
+.video-fab-tooltip {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 14px);
+  transform: translateY(-50%) translateX(6px);
+  background: var(--prussian);
+  color: var(--parchment);
+  font-family: var(--body);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border: 1px solid var(--hairline-strong);
+  box-shadow: 0 10px 24px rgba(18, 43, 79, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  animation: video-fab-tooltip-loop 4s ease-in-out infinite;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+/* Whatever section currently sits behind the fixed FAB is sampled in
+   video.js; on a dark/blue background the navy tooltip would blend in,
+   so it flips to a light "white mode" for contrast instead. */
+.video-fab.tooltip-on-dark .video-fab-tooltip {
+  background: var(--parchment);
+  color: var(--prussian-deep);
+  border-color: rgba(18, 43, 79, 0.18);
+  box-shadow: 0 10px 24px rgba(4, 10, 22, 0.28);
+}
+.video-fab:hover .video-fab-tooltip,
+.video-fab:focus-visible .video-fab-tooltip {
+  animation-play-state: paused;
+  opacity: 1 !important;
+  transform: translateY(-50%) translateX(0) !important;
+}
+.video-fab:hover,
+.video-fab:focus-visible {
+  background: var(--burnished-gold);
+  transform: scale(1.08);
+  box-shadow: 0 18px 44px rgba(18, 43, 79, 0.38);
+  animation-play-state: paused;
+}
+.video-fab:focus-visible {
+  outline: 2px solid var(--prussian);
+  outline-offset: 3px;
+}
+@keyframes video-fab-pulse {
+  0% { box-shadow: 0 14px 36px rgba(18, 43, 79, 0.32), 0 0 0 0 rgba(184, 150, 58, 0.45); }
+  70% { box-shadow: 0 14px 36px rgba(18, 43, 79, 0.32), 0 0 0 14px rgba(184, 150, 58, 0); }
+  100% { box-shadow: 0 14px 36px rgba(18, 43, 79, 0.32), 0 0 0 0 rgba(184, 150, 58, 0); }
+}
+@keyframes video-fab-tooltip-loop {
+  0%, 60% { opacity: 0; transform: translateY(-50%) translateX(6px); }
+  72%, 88% { opacity: 1; transform: translateY(-50%) translateX(0); }
+  100% { opacity: 0; transform: translateY(-50%) translateX(6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .video-fab { animation: none; }
+  .video-fab-tooltip { animation: none; opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+/* Expanded video overlay — the clicked trigger "grows into" this on open. */
+.video-expanded {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+}
+.video-expanded[hidden] { display: none; }
+.video-expanded-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 26, 51, 0.94);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.video-expanded.is-open .video-expanded-backdrop { opacity: 1; }
+
+/* The panel is sized and positioned to its final centered rect up front.
+   Opening/closing only animates `scale`, anchored (via an inline
+   transform-origin set in JS) at the exact on-screen point of the clicked
+   trigger, so it visibly grows out of that spot instead of moving across
+   the page. */
+.video-expanded-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  background: var(--prussian-deep);
+  box-shadow: 0 40px 120px rgba(4, 10, 22, 0.55);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Clips the video itself; kept separate from the panel so the close
+   button (positioned outside the panel) never sits over the iframe and
+   collides with YouTube's own on-video controls. */
+/* Flex-centers the media at its own natural size (never stretched to the
+   frame) so any leftover space is this wrapper's background — not the
+   video element's own decode surface, which browsers paint solid black
+   for any unfilled space inside an object-fit box, ignoring CSS
+   background entirely. This is the only reliable way to avoid black bars. */
+.video-expanded-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--prussian-deep);
+}
+.video-expanded-media img,
+.video-expanded-media video {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+  border: 0;
+}
+
+.video-expanded-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  z-index: 2;
+  border-radius: 50%;
+  background: var(--prussian-deep);
+  border: 1px solid var(--hairline-strong);
+  color: var(--parchment);
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.3s, border-color 0.3s;
+}
+.video-expanded.is-open .video-expanded-close { opacity: 1; }
+.video-expanded-close:hover,
+.video-expanded-close:focus-visible {
+  background: var(--antique-gold);
+  border-color: var(--antique-gold);
+  color: var(--prussian-deep);
+}
+.video-expanded-close:focus-visible {
+  outline: 2px solid var(--antique-gold);
+  outline-offset: 3px;
+}
+
+/* Reduced motion: no scale/translate choreography — a plain state change */
+@media (prefers-reduced-motion: reduce) {
+  .video-expanded-panel { transition: opacity 0.25s ease; opacity: 0; }
+  .video-expanded.is-open .video-expanded-panel { opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .video-expanded-close { top: 8px; right: 8px; width: 32px; height: 32px; font-size: 18px; }
+  .video-fab {
+    right: 18px;
+    bottom: 20px;
+    width: 54px;
+    height: 54px;
+  }
+  .video-fab:hover,
+  .video-fab:focus-visible { transform: none; }
+  .video-fab svg { width: 15px; height: 15px; }
+}

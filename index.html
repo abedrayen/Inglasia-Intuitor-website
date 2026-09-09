@@ -12,6 +12,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://i.ytimg.com">
 <!-- Three fonts: Cormorant (headers), Lora (buttons), Inter Tight (text) -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -32,6 +33,7 @@
 <link rel="stylesheet" href="css/footer.css?v=9">
 <link rel="stylesheet" href="css/scrollbar.css?v=2">
 <link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/video.css?v=13">
 <link rel="stylesheet" href="css/responsive.css?v=14">
 </head>
 <body>
@@ -91,7 +93,13 @@
       </p>
       <div class="hero-cta-group">
         <a href="contact.html#meeting" class="btn-primary">Request a walkthrough</a>
-        <a href="#platform" class="btn-ghost">See the platform</a>
+        <button
+          type="button"
+          class="btn-ghost video-trigger"
+          data-video-trigger
+          aria-haspopup="dialog"
+          aria-controls="videoExpanded"
+        >Watch it in action</button>
       </div>
     </div>
 
@@ -631,6 +639,29 @@
   </div>
 </footer>
 
+<!-- =============== VIDEO FLOATING TRIGGER =============== -->
+<button
+  type="button"
+  class="video-fab video-trigger"
+  id="videoFabTrigger"
+  data-video-trigger
+  aria-haspopup="dialog"
+  aria-controls="videoExpanded"
+  aria-label="Play video: Inglasia Intuitor - eQMS Platform - Quality at it's core"
+>
+  <span class="video-fab-tooltip" aria-hidden="true">Watch: Quality at its core</span>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+</button>
+
+<!-- =============== EXPANDED VIDEO OVERLAY =============== -->
+<div class="video-expanded" id="videoExpanded" hidden>
+  <div class="video-expanded-backdrop"></div>
+  <div class="video-expanded-panel" id="videoExpandedPanel" role="dialog" aria-modal="true" aria-label="Inglasia Intuitor eQMS Platform video">
+    <button type="button" class="video-expanded-close" id="videoExpandedClose" aria-label="Close video">&times;</button>
+    <div class="video-expanded-media" id="videoExpandedMedia"></div>
+  </div>
+</div>
+
 <script src="js/cursor.js"></script>
 <script src="js/nav.js?v=21"></script>
 <script src="js/hero.js"></script>
@@ -638,5 +669,6 @@
 <script src="js/button-spot.js?v=20"></script>
 <script src="js/values.js"></script>
 <script src="js/scrollbar.js?v=2"></script>
+<script src="js/video.js?v=10"></script>
 </body>
 </html>
