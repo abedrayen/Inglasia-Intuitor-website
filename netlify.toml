@@ -1,0 +1,70 @@
+[build]
+  publish = "."
+
+# --- Canonical clean URLs: redirect the .html form to the extensionless form ---
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blogs.html"
+  to = "/blogs"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy.html"
+  to = "/privacy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-open-letter.html"
+  to = "/blog-open-letter"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-qualified-person-gmp.html"
+  to = "/blog-qualified-person-gmp"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quality-system-quiz.html"
+  to = "/quality-system-quiz"
+  status = 301
+  force = true
+
+# --- Internal-only files: never meant to be publicly served ---
+# No custom 404.html exists in this repo, so these redirect to "/" but
+# override the response status to 404 (a standard Netlify shadowing pattern).
+[[redirects]]
+  from = "/UK-HOSTING-REQUIREMENT.md"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/supabase/*"
+  to = "/"
+  status = 404
+  force = true
+
+# --- Security headers (site currently only sends Netlify's default HSTS) ---
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com https://*.supabase.co; media-src 'self'; connect-src 'self' https://*.supabase.co https://api.staticforms.dev https://api.web3forms.com https://formspree.io https://api.emailjs.com; frame-src https://www.google.com https://calendly.com https://www.youtube-nocookie.com; base-uri 'self'; form-action 'self'"

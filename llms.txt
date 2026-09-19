@@ -1,0 +1,40 @@
+# Inglasia Intuitor
+
+> Inglasia Intuitor is an electronic Quality Management System (eQMS) built for pharmaceutical and life-sciences Quality teams.
+
+The platform covers document control, deviations, CAPA, change control, and learning/training management as a single connected system, with workflows aligned to established GxP compliance frameworks.
+
+## Platform
+
+- [Inglasia Intuitor eQMS](https://inglasiaintuitor.com/): Product overview, platform modules, and compliance positioning.
+- [Document Control](https://inglasiaintuitor.com/#platform): Controlled document lifecycle, from draft through approval to effective status.
+- [Deviations](https://inglasiaintuitor.com/#platform): Deviation submission and review workflow.
+- [CAPA](https://inglasiaintuitor.com/#platform): Corrective and Preventive Action lifecycle management.
+- [Change Control](https://inglasiaintuitor.com/#platform): Change impact assessment and controlled change workflow.
+- [Learning Management](https://inglasiaintuitor.com/#platform): Training status tracking that gates access to other modules' actions.
+
+These five modules are currently presented as sections of the homepage rather than as separate URLs; the link above points to the shared section they live in.
+
+## Compliance
+
+The site references the following GxP/data-integrity frameworks and concepts (see the homepage's compliance and standards sections):
+
+- [21 CFR Part 11](https://inglasiaintuitor.com/#standards): FDA electronic records and electronic signatures.
+- [EU GMP Annex 11](https://inglasiaintuitor.com/#standards): EU GMP guideline on computerised systems.
+- [GAMP 5](https://inglasiaintuitor.com/#standards): ISPE risk-based approach to computerised system validation.
+- [ALCOA+](https://inglasiaintuitor.com/#standards): Data integrity principles (Attributable, Legible, Contemporaneous, Original, Accurate, plus Complete, Consistent, Enduring, Available).
+- [ICH Q9](https://inglasiaintuitor.com/#standards): Quality risk management.
+- [ICH Q10](https://inglasiaintuitor.com/#standards): Pharmaceutical quality system.
+- [Data Integrity](https://inglasiaintuitor.com/#standards): General data integrity principles referenced alongside ALCOA+.
+
+These are referenced as frameworks the platform's workflows are designed around; this file does not claim formal certification, regulatory approval, or endorsement by any authority.
+
+## Resources
+
+- [Blogs](https://inglasiaintuitor.com/blogs): Index of articles on quality and compliance topics.
+- [Qualified Person batch release in GMP](https://inglasiaintuitor.com/blog-qualified-person-gmp): Video discussion on batch release and documentation workload.
+- [An open letter to Pharma Quality](https://inglasiaintuitor.com/blog-open-letter): Launch article introducing Inglasia Intuitor v1.0.
+
+## Contact
+
+- [Contact](https://inglasiaintuitor.com/contact): Request a product walkthrough or get in touch.
