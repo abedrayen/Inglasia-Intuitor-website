@@ -45,19 +45,23 @@
   force = true
 
 # --- Internal-only files: never meant to be publicly served ---
-# No custom 404.html exists in this repo, so these redirect to "/" but
-# override the response status to 404 (a standard Netlify shadowing pattern).
+# Shadowed to the real 404 page (not the homepage), with the response
+# status overridden to 404 (a standard Netlify shadowing pattern).
 [[redirects]]
   from = "/UK-HOSTING-REQUIREMENT.md"
-  to = "/"
+  to = "/404.html"
   status = 404
   force = true
 
 [[redirects]]
   from = "/supabase/*"
-  to = "/"
+  to = "/404.html"
   status = 404
   force = true
+
+# Any other unmatched path is served /404.html automatically by Netlify's
+# convention (a 404.html at the publish root needs no redirect rule of its
+# own), with a genuine 404 status.
 
 # --- Security headers (site currently only sends Netlify's default HSTS) ---
 [[headers]]

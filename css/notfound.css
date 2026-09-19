@@ -1,0 +1,16 @@
+/* ============================================================
+   404 — reuses .blog-post chrome from blog.css and .btn-primary
+   from hero.css; only the actions row needs its own layout.
+   ============================================================ */
+.notfound-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+  margin-top: 8px;
+  margin-bottom: 40px;
+}
+
+.notfound-secondary-link {
+  margin-top: 0;
+}
