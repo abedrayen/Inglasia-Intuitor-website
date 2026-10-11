@@ -39,7 +39,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="css/nav.css?v=15">
 <link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/sections.css">
-<link rel="stylesheet" href="css/contact.css">
+<link rel="stylesheet" href="css/contact.css?v=2">
+<link rel="stylesheet" href="css/booking.css?v=11">
 <link rel="stylesheet" href="css/footer.css?v=9">
 <link rel="stylesheet" href="css/scrollbar.css?v=2">
 <link rel="stylesheet" href="css/reveal.css">
@@ -153,31 +154,126 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         id="panel-meeting"
         aria-labelledby="tab-meeting"
       >
-        <div class="contact-meeting-gate" id="meetingGate">
-          <p class="contact-pane-lead">Enter your company email to see available times.</p>
-          <form class="contact-form" id="meetingGateForm" novalidate>
-            <div class="field">
-              <label for="meetingGateEmail">Work email</label>
-              <input
-                type="email"
-                id="meetingGateEmail"
-                name="meetingGateEmail"
-                autocomplete="email"
-                placeholder="jane@company.com"
-                required
-              />
+        <div class="booking" id="booking">
+          <div class="booking-context">
+            <div>
+              <p class="booking-eyebrow">Live walkthrough</p>
+              <h2 class="booking-title" id="bookingTitle">Book a demo — Inglasia Intuitor</h2>
             </div>
-            <button type="submit" class="btn-primary">Continue to booking</button>
-          </form>
-        </div>
+            <ul class="booking-meta">
+              <li id="bookingDurationItem">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M12 7v5l3 2"/>
+                </svg>
+                <span id="bookingDuration">30 minutes</span>
+              </li>
+              <li id="bookingLocationItem">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="6" width="14" height="12" rx="1"/>
+                  <path d="M16 10l6-3v10l-6-3"/>
+                </svg>
+                <span id="bookingLocation">Microsoft Teams</span>
+              </li>
+              <li class="booking-tz-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>
+                </svg>
+                <button type="button" class="booking-tz" id="bookingTimezone" aria-haspopup="listbox" aria-expanded="false" aria-controls="bookingTzPanel">
+                  <span class="sr-only">Time zone: </span>
+                  <span class="booking-tz-value" id="bookingTzValue">Your local time zone</span>
+                  <svg class="booking-tz-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+                </button>
+                <div class="booking-tz-panel" id="bookingTzPanel" hidden>
+                  <input type="text" class="booking-tz-search" id="bookingTzSearch" role="combobox" aria-expanded="true" aria-controls="bookingTzList" aria-autocomplete="list" aria-label="Search time zones" placeholder="Search city or region" autocomplete="off" spellcheck="false" />
+                  <ul class="booking-tz-list" id="bookingTzList" role="listbox" aria-label="Time zones"></ul>
+                </div>
+              </li>
+            </ul>
+          </div>
 
-        <div class="contact-calendly" id="calendlyWrap" hidden>
-          <div
-            class="calendly-inline-widget"
-            id="calendlyInlineWidget"
-            data-auto-load="false"
-            data-url="https://calendly.com/d/dvt9-fs2-2s4/book-a-demo-inglasia-intuitor?hide_gdpr_banner=1&hide_event_type_details=1&background_color=122b4f&text_color=A9C2D9&primary_color=8fb4d4"
-          ></div>
+          <div class="booking-status" id="bookingStatus" role="alert" hidden></div>
+
+          <div class="booking-pick" id="bookingPick">
+            <div class="booking-calendar is-loading" id="bookingCalendar" aria-busy="true">
+              <div class="booking-cal-head">
+                <button type="button" class="booking-cal-nav" id="bookingPrev" aria-label="Previous month">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+                </button>
+                <h3 class="booking-cal-month" id="bookingMonth" aria-live="polite"></h3>
+                <button type="button" class="booking-cal-nav" id="bookingNext" aria-label="Next month">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+              <div class="booking-cal-weekdays" aria-hidden="true">
+                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+              </div>
+              <div class="booking-cal-grid" id="bookingGrid">
+                <span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span>
+                <span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span>
+                <span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span>
+                <span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span>
+                <span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span><span class="booking-day" aria-hidden="true"></span>
+              </div>
+              <p class="booking-cal-note is-silent" id="bookingCalNote" aria-live="polite">Loading available times…</p>
+            </div>
+
+            <div class="booking-times">
+              <h3 class="booking-times-title" id="bookingDayLabel">Available times</h3>
+              <div class="booking-slots" id="bookingSlots" role="list" aria-labelledby="bookingDayLabel" aria-busy="true">
+                <div class="booking-slot-ghost" aria-hidden="true"></div>
+                <div class="booking-slot-ghost" aria-hidden="true"></div>
+                <div class="booking-slot-ghost" aria-hidden="true"></div>
+                <div class="booking-slot-ghost" aria-hidden="true"></div>
+                <div class="booking-slot-ghost" aria-hidden="true"></div>
+                <div class="booking-slot-ghost" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+
+          <form class="contact-form booking-form" id="bookingForm" novalidate hidden>
+            <div class="booking-summary">
+              <div>
+                <p class="booking-summary-label">Your walkthrough</p>
+                <p class="booking-summary-when" id="bookingSummaryWhen" tabindex="-1"></p>
+                <p class="booking-summary-meta" id="bookingSummaryMeta"></p>
+              </div>
+              <button type="button" class="booking-change" id="bookingChange">Change time</button>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="bookingName">Full name</label>
+                <input type="text" id="bookingName" name="name" autocomplete="name" placeholder="Jane Doe" maxlength="100" required aria-describedby="bookingName-error" />
+                <p class="field-error" id="bookingName-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="bookingEmail">Work email</label>
+                <input type="email" id="bookingEmail" name="email" autocomplete="email" placeholder="jane@company.com" maxlength="254" required aria-describedby="bookingEmail-error" />
+                <p class="field-error" id="bookingEmail-error" hidden></p>
+              </div>
+            </div>
+
+            <div class="booking-guests">
+              <button type="button" class="booking-link" id="bookingAddGuests" aria-expanded="false" aria-controls="bookingGuestsField">+ Add guests</button>
+              <div class="field" id="bookingGuestsField" hidden>
+                <label for="bookingGuests">Guest emails (optional)</label>
+                <input type="text" id="bookingGuests" name="guests" inputmode="email" autocomplete="off" placeholder="guest@example.com, another@example.com" aria-describedby="bookingGuests-hint bookingGuests-error" />
+                <p class="booking-hint" id="bookingGuests-hint">Separate addresses with commas. Up to 3 guests — each receives the invitation.</p>
+                <p class="field-error" id="bookingGuests-error" hidden></p>
+              </div>
+            </div>
+
+            <div id="bookingExtraFields"></div>
+
+            <div class="booking-hp" aria-hidden="true">
+              <label for="bookingWebsite">Leave this field empty</label>
+              <input type="text" id="bookingWebsite" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <button type="submit" class="btn-primary" id="bookingSubmit">Confirm booking</button>
+          </form>
         </div>
       </div>
 
@@ -324,8 +420,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="js/cursor.js"></script>
 <script src="js/nav.js?v=21"></script>
 <script src="js/reveal.js"></script>
-<script src="js/contact.js?v=11"></script>
+<script src="js/company-email.js?v=1"></script>
+<script src="js/contact.js?v=14"></script>
+<script src="js/booking.js?v=11"></script>
 <script src="js/scrollbar.js?v=2"></script>
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>

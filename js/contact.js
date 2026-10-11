@@ -1,4 +1,4 @@
-// Contact page — modes, form/Calendly → thank-you popup
+// Contact page — modes, message form / booking → thank-you popup
 console.log('[contact] script loaded');
 
 const tabs = document.querySelectorAll('.contact-mode');
@@ -20,61 +20,39 @@ document.querySelectorAll('.contact [data-reveal]').forEach((el) => {
   el.classList.add('in');
 });
 
-let lastSelectedSlot = null;
-
-function findIsoDate(node, depth) {
-  if (node == null || depth > 8) return null;
-  if (typeof node === 'string') {
-    if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(node)) return node;
-    return null;
-  }
-  if (typeof node !== 'object') return null;
-  const preferred = ['start_time', 'startTime', 'begin_at', 'date_time', 'datetime', 'start'];
-  for (const key of preferred) {
-    if (typeof node[key] === 'string' && /^\d{4}-\d{2}-\d{2}/.test(node[key])) {
-      return node[key];
-    }
-  }
-  for (const value of Object.values(node)) {
-    const found = findIsoDate(value, depth + 1);
-    if (found) return found;
-  }
-  return null;
-}
-
-function formatMeetingWhen(iso) {
+function formatMeetingWhen(iso, timeZone) {
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return null;
 
-  const weekday = new Intl.DateTimeFormat('en-GB', {
+  const day = new Intl.DateTimeFormat('en-GB', {
     weekday: 'long',
-    timeZone: 'Europe/London',
-  }).format(date);
-  const dayMonthYear = new Intl.DateTimeFormat('en-GB', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-    timeZone: 'Europe/London',
+    timeZone,
   }).format(date);
   const time = new Intl.DateTimeFormat('en-GB', {
     hour: 'numeric',
     minute: '2-digit',
     hour12: true,
-    timeZone: 'Europe/London',
+    timeZone,
   }).format(date);
 
-  return `${weekday} ${dayMonthYear} at ${time}`;
+  return `${day} at ${time} (${timeZone.replace(/_/g, ' ')})`;
 }
 
-function meetingThankYouText(payload) {
-  const iso = findIsoDate(payload, 0) || lastSelectedSlot;
-  const when = iso ? formatMeetingWhen(iso) : null;
-  const whenClause = when ? ` for ${when}` : ' for the time you selected';
+function meetingThankYouText(booking) {
+  const when = booking && booking.start ? formatMeetingWhen(booking.start, booking.timezone) : null;
+  const whenClause = when ? ` for ${when}` : '';
+  const guestCount = booking && Array.isArray(booking.guests) ? booking.guests.length : 0;
+  const inbox =
+    (booking && booking.email ? booking.email : 'your inbox') +
+    (guestCount ? ` and ${guestCount} guest${guestCount === 1 ? '' : 's'}` : '');
 
   return (
-    `Your meeting is confirmed${whenClause}. ` +
-    'A calendar invitation has been sent to your email by Calendly. ' +
-    'Check your inbox and spam folder if needed.'
+    `Your walkthrough is confirmed${whenClause}. ` +
+    `Calendly is sending the invitation and meeting details to ${inbox}. ` +
+    'Check your spam folder if it has not arrived within a few minutes.'
   );
 }
 
@@ -147,37 +125,6 @@ window.addEventListener('hashchange', () => {
   if (location.hash === '#message' || location.hash === '#form') setMode('message');
   else if (location.hash === '#meeting' || location.hash === '#panel') setMode('meeting');
 });
-
-// ---- Company-email validation (shared by the message form and the meeting gate) ----
-// Blocks free/personal webmail domains. Extend the list as needed — this is a
-// denylist, not an exhaustive company-domain check.
-const FREE_EMAIL_DOMAINS = new Set([
-  'gmail.com', 'googlemail.com',
-  'yahoo.com', 'yahoo.co.uk', 'yahoo.fr', 'ymail.com', 'rocketmail.com',
-  'hotmail.com', 'hotmail.co.uk', 'hotmail.fr',
-  'outlook.com', 'outlook.fr', 'live.com', 'live.co.uk', 'msn.com',
-  'aol.com',
-  'icloud.com', 'me.com', 'mac.com',
-  'protonmail.com', 'proton.me', 'pm.me',
-  'mail.com', 'gmx.com', 'gmx.net',
-  'yandex.com', 'yandex.ru',
-  'zoho.com',
-  'fastmail.com', 'tutanota.com', 'hey.com',
-  'inbox.com', 'rediffmail.com',
-  'qq.com', '163.com', '126.com',
-]);
-
-function getEmailDomain(email) {
-  const at = email.lastIndexOf('@');
-  if (at === -1) return '';
-  return email.slice(at + 1).trim().toLowerCase();
-}
-
-function isCompanyEmail(email) {
-  const domain = getEmailDomain(email);
-  if (!domain) return false;
-  return !FREE_EMAIL_DOMAINS.has(domain);
-}
 
 if (emailInput) {
   // Clear the custom error as soon as the person edits the field again.
@@ -360,100 +307,7 @@ if (form && submitBtn) {
   });
 }
 
-// ---- Meeting gate: require a company email before the Calendly widget loads ----
-const meetingGate = document.getElementById('meetingGate');
-const meetingGateForm = document.getElementById('meetingGateForm');
-const meetingGateEmail = document.getElementById('meetingGateEmail');
-const calendlyWrap = document.getElementById('calendlyWrap');
-const calendlyWidgetEl = document.getElementById('calendlyInlineWidget');
-
-if (meetingGateEmail) {
-  meetingGateEmail.addEventListener('input', () => {
-    meetingGateEmail.setCustomValidity('');
-  });
-}
-
-// Calendly's widget.js loads with `async`, so window.Calendly may not exist
-// yet the instant the gate is passed. Poll briefly rather than assuming.
-function whenCalendlyReady(callback, attempt) {
-  attempt = attempt || 0;
-  if (window.Calendly && typeof window.Calendly.initInlineWidget === 'function') {
-    callback();
-    return;
-  }
-  if (attempt > 50) {
-    console.error('[contact] Calendly widget script did not load in time');
-    return;
-  }
-  setTimeout(() => whenCalendlyReady(callback, attempt + 1), 100);
-}
-
-function loadCalendlyWidget(email) {
-  if (!calendlyWrap || !calendlyWidgetEl) return;
-
-  meetingGate.hidden = true;
-  calendlyWrap.hidden = false;
-  calendlyWrap.removeAttribute('hidden');
-
-  const url = calendlyWidgetEl.dataset.url;
-
-  whenCalendlyReady(() => {
-    window.Calendly.initInlineWidget({
-      url,
-      parentElement: calendlyWidgetEl,
-      prefill: { email },
-    });
-  });
-}
-
-if (meetingGateForm) {
-  meetingGateForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    if (!meetingGateForm.checkValidity()) {
-      meetingGateForm.reportValidity();
-      return;
-    }
-
-    if (!isCompanyEmail(meetingGateEmail.value)) {
-      meetingGateEmail.setCustomValidity(
-        'Please use your company email address rather than a personal one.'
-      );
-      meetingGateForm.reportValidity();
-      meetingGateEmail.focus();
-      return;
-    }
-
-    meetingGateEmail.setCustomValidity('');
-    loadCalendlyWidget(meetingGateEmail.value.trim());
-  });
-}
-
-function parseCalendlyData(data) {
-  if (!data) return null;
-  if (typeof data === 'string') {
-    try { return JSON.parse(data); } catch { return null; }
-  }
-  return typeof data === 'object' ? data : null;
-}
-
-window.addEventListener('message', (e) => {
-  const fromCalendly =
-    e.origin === 'https://calendly.com' ||
-    e.origin === 'https://www.calendly.com';
-  if (!fromCalendly) return;
-
-  const data = parseCalendlyData(e.data);
-  if (!data || typeof data.event !== 'string') return;
-
-  const slot = findIsoDate(data.payload || data, 0);
-  if (slot) {
-    lastSelectedSlot = slot;
-    console.log('[contact] calendly slot cached', slot);
-  }
-
-  if (data.event === 'calendly.event_scheduled') {
-    console.log('[contact] calendly.event_scheduled', data.payload);
-    openThankYou('meeting', data.payload || null);
-  }
+// ---- Booking confirmation (dispatched by booking.js once Calendly confirms) ----
+document.addEventListener('booking:confirmed', (e) => {
+  openThankYou('meeting', e.detail || null);
 });

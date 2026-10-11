@@ -1,6 +1,10 @@
 [build]
   publish = "."
 
+# Booking API (Calendly proxy). Secrets live in Netlify env vars — see netlify/README.md.
+[functions]
+  directory = "netlify/functions"
+
 # --- Canonical clean URLs: redirect the .html form to the extensionless form ---
 [[redirects]]
   from = "/index.html"
@@ -59,6 +63,18 @@
   status = 404
   force = true
 
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.env.example"
+  to = "/404.html"
+  status = 404
+  force = true
+
 # Any other unmatched path is served /404.html automatically by Netlify's
 # convention (a 404.html at the publish root needs no redirect rule of its
 # own), with a genuine 404 status.
@@ -71,4 +87,4 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), camera=(), microphone=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://assets.calendly.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com https://*.supabase.co https://www.googletagmanager.com; media-src 'self'; connect-src 'self' https://*.supabase.co https://api.staticforms.dev https://api.web3forms.com https://formspree.io https://api.emailjs.com https://www.googletagmanager.com; frame-src https://www.google.com https://calendly.com https://www.youtube-nocookie.com https://www.googletagmanager.com; base-uri 'self'; form-action 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com https://*.supabase.co https://www.googletagmanager.com; media-src 'self'; connect-src 'self' https://*.supabase.co https://api.staticforms.dev https://api.web3forms.com https://formspree.io https://api.emailjs.com https://www.googletagmanager.com; frame-src https://www.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com; base-uri 'self'; form-action 'self'"
