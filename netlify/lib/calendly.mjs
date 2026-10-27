@@ -17,7 +17,7 @@ export class BookingError extends Error {
 }
 
 const NOT_CONFIGURED_MESSAGE =
-  'Online booking is temporarily unavailable. Please email info@inglasiaintuitor.com and we will arrange a time.';
+  'Online booking is temporarily unavailable. Please email support@inglasia.com and we will arrange a time.';
 
 function notConfigured() {
   return new BookingError(503, 'not_configured', NOT_CONFIGURED_MESSAGE);
