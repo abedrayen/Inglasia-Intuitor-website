@@ -743,11 +743,617 @@
     transition: none;
   }
 }
-  .blog-post-body h2 {
-    margin-top: 1.8em;
-  }
+.blog-post-body h2 {
+  margin-top: 1.8em;
+}
 
-  .blog-video-caption {
-    margin-bottom: 2em !important;
+.blog-video-caption {
+  margin-bottom: 2em !important;
+}
+
+/* Article extension (Nov 2026): figures, key-points callout and list spacing, keeping the existing palette and three fonts. */
+.blog-list {
+  margin: 0 0 1.35em;
+  padding-left: 1.4em;
+}
+
+.blog-list li {
+  margin-bottom: 0.45em;
+}
+
+.blog-list li::marker {
+  color: var(--antique-gold);
+}
+
+.blog-after-table {
+  margin-top: 1.6em;
+}
+
+.blog-table-wrap {
+  width: 100%;
+}
+
+.blog-key-points {
+  margin: 0 0 2.2em;
+  padding: 26px 30px 22px;
+  background: var(--parchment-deep);
+  border: 1px solid var(--paper-line);
+  position: relative;
+}
+
+.blog-key-points::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 56px;
+  height: 2px;
+  background: var(--antique-gold);
+}
+
+.blog-post-body .blog-key-points-title {
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--antique-gold);
+  margin-bottom: 0.9em;
+}
+
+.blog-key-points ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.blog-key-points li {
+  margin-bottom: 0.55em;
+}
+
+.blog-key-points li:last-child {
+  margin-bottom: 0;
+}
+
+.blog-key-points li::marker {
+  color: var(--antique-gold);
+}
+
+.blog-figure {
+  margin: 2.2em 0 2.4em;
+}
+
+.blog-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--paper-line);
+}
+
+.blog-figure--hero {
+  margin: 0 0 2.15em;
+}
+
+.blog-figure--hero img {
+  border-color: var(--hairline-strong);
+  box-shadow: 0 14px 34px rgba(18, 43, 79, 0.12);
+}
+
+.blog-figure figcaption {
+  margin-top: 0.8em;
+  color: rgba(15, 26, 46, 0.66);
+  font-family: var(--body);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  line-height: 1.55;
+}
+
+@media (max-width: 720px) {
+  .blog-key-points {
+    padding: 22px 20px 18px;
   }
 }
+
+/* SEO article extension 2 (Nov 2026): contents list, HTML diagrams and FAQ, in the existing palette and three fonts. */
+.blog-post-body h2,
+.blog-faq h2 {
+  scroll-margin-top: 104px;
+}
+
+.blog-toc {
+  margin: 0 0 2.4em;
+  padding: 0 0 0 22px;
+  border-left: 1px solid var(--hairline-strong);
+}
+
+.blog-post-body .blog-toc-title {
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--antique-gold);
+  margin-bottom: 0.7em;
+}
+
+.blog-toc ol {
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.blog-toc li {
+  margin-bottom: 0.35em;
+}
+
+.blog-toc li::marker {
+  color: var(--antique-gold);
+  font-size: 12px;
+}
+
+.blog-toc a {
+  color: var(--admiralty);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(28, 58, 95, 0.18);
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.blog-toc a:hover {
+  color: var(--antique-gold);
+  border-color: var(--antique-gold);
+}
+
+/* Shared diagram frame */
+.blog-diagram {
+  margin: 2.4em 0 2.6em;
+  padding: 30px 30px 24px;
+  background: var(--parchment-deep);
+  border: 1px solid var(--paper-line);
+  position: relative;
+}
+
+.blog-diagram::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 56px;
+  height: 2px;
+  background: var(--antique-gold);
+}
+
+.blog-post-body .blog-diagram-kicker {
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--antique-gold);
+  margin-bottom: 0.35em;
+}
+
+.blog-post-body .blog-diagram-title {
+  font-family: var(--display);
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--prussian);
+  margin-bottom: 1.1em;
+}
+
+.blog-diagram figcaption {
+  margin-top: 1.2em;
+  color: rgba(15, 26, 46, 0.66);
+  font-family: var(--body);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+/* Decision flow */
+.blog-flow-question {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  text-align: center;
+  background: var(--parchment);
+  border: 1px solid var(--antique-gold);
+  font-family: var(--display);
+  font-size: 21px;
+  line-height: 1.25;
+  color: var(--prussian);
+}
+
+.blog-flow-question span {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--antique-gold);
+}
+
+.blog-flow-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 30px;
+  position: relative;
+}
+
+.blog-flow-split::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 25%;
+  right: 25%;
+  height: 16px;
+  border: 1px solid var(--antique-gold);
+  border-bottom: 0;
+}
+
+.blog-flow-split::after {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  height: 0;
+  border-left: 1px solid var(--antique-gold);
+}
+
+.blog-flow-branch {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.blog-flow-label {
+  font-family: var(--body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--antique-gold);
+  text-align: center;
+}
+
+.blog-flow-card {
+  padding: 16px 18px;
+  background: var(--parchment);
+  border: 1px solid rgba(18, 43, 79, 0.14);
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(15, 26, 46, 0.82);
+}
+
+.blog-flow-card strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--prussian);
+}
+
+.blog-flow-card--dark {
+  background: var(--prussian);
+  border-color: var(--prussian);
+  color: rgba(250, 247, 242, 0.86);
+}
+
+.blog-flow-card--dark strong {
+  color: var(--burnished-gold);
+}
+
+.blog-flow-card--dashed {
+  border-style: dashed;
+  border-color: var(--antique-gold);
+}
+
+.blog-flow-note {
+  padding: 2px 0 2px 14px;
+  border-left: 2px solid var(--antique-gold);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: rgba(15, 26, 46, 0.75);
+}
+
+.blog-flow-branch .blog-flow-question {
+  font-size: 17px;
+  padding: 12px 14px;
+}
+
+.blog-flow-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.blog-flow-pair .blog-flow-label {
+  margin-bottom: 6px;
+}
+
+.blog-flow-pair .blog-flow-card strong {
+  font-size: 17px;
+}
+
+/* Numbered step cards */
+.blog-post-body ol.blog-steps {
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.blog-steps li {
+  counter-increment: step;
+  padding: 14px 12px 14px;
+  background: var(--parchment);
+  border: 1px solid rgba(18, 43, 79, 0.12);
+  position: relative;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(15, 26, 46, 0.8);
+}
+
+.blog-steps li::before {
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  font-family: var(--display);
+  font-size: 26px;
+  line-height: 1;
+  color: var(--antique-gold);
+  margin-bottom: 8px;
+}
+
+.blog-steps li strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--body);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--admiralty);
+}
+
+.blog-steps-outcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.blog-steps-outcome .blog-flow-label {
+  margin-right: 6px;
+}
+
+.blog-chip {
+  padding: 6px 16px;
+  font-family: var(--display);
+  font-size: 19px;
+  line-height: 1.2;
+  border: 1px solid var(--prussian);
+  color: var(--prussian);
+}
+
+.blog-chip--critical {
+  background: var(--prussian);
+  color: var(--parchment);
+}
+
+.blog-chip--minor {
+  border-color: rgba(18, 43, 79, 0.35);
+  color: var(--admiralty);
+}
+
+/* FAQ refinements (base styles above) */
+.blog-faq-item h3 {
+  margin-bottom: 0.45em;
+}
+
+@media (max-width: 720px) {
+  .blog-diagram {
+    padding: 24px 18px 20px;
+  }
+
+  .blog-post-body .blog-diagram-title {
+    font-size: 23px;
+  }
+
+  .blog-flow-split {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .blog-flow-split::before,
+  .blog-flow-split::after {
+    display: none;
+  }
+
+  .blog-flow-split {
+    margin-top: 22px;
+  }
+
+  .blog-post-body ol.blog-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-steps li {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    column-gap: 10px;
+    align-items: start;
+  }
+
+  .blog-steps li::before {
+    grid-row: span 2;
+    margin-bottom: 0;
+  }
+}
+
+/* FAQ accordion (Nov 2026): native details/summary, click to open. */
+.blog-faq-item {
+  padding: 0;
+}
+
+.blog-faq-item summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 1.05em 0;
+  cursor: pointer;
+}
+
+.blog-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.blog-faq-item summary h3 {
+  margin: 0;
+  transition: color 0.25s;
+}
+
+.blog-faq-item summary::after {
+  content: '+';
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 50%;
+  font-family: var(--body);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--antique-gold);
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), background 0.25s, color 0.25s;
+}
+
+.blog-faq-item[open] summary::after {
+  content: '\2212';
+  background: var(--prussian);
+  border-color: var(--prussian);
+  color: var(--parchment);
+}
+
+.blog-faq-item summary:hover h3 {
+  color: var(--antique-gold);
+}
+
+.blog-faq-item summary:focus-visible {
+  outline: 3px solid var(--burnished-gold);
+  outline-offset: 4px;
+}
+
+.blog-faq-answer {
+  padding: 0 48px 1.1em 0;
+}
+
+.blog-faq-answer p {
+  margin-bottom: 0;
+}
+
+.blog-faq-item[open] .blog-faq-answer {
+  animation: blogFaqIn 0.3s ease;
+}
+
+@keyframes blogFaqIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 720px) {
+  .blog-faq-answer {
+    padding-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-faq-item summary::after,
+  .blog-faq-item[open] .blog-faq-answer {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Semantic extension (Nov 2026): visible breadcrumb, byline, footer headings as h2. */
+.blog-breadcrumb {
+  max-width: 720px;
+  margin: 0 auto 26px;
+}
+
+.blog-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(15, 26, 46, 0.6);
+}
+
+.blog-breadcrumb li + li::before {
+  content: '›';
+  margin: 0 10px;
+  color: var(--antique-gold);
+}
+
+.blog-breadcrumb a {
+  color: var(--admiralty);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.blog-breadcrumb a:hover {
+  color: var(--antique-gold);
+}
+
+.blog-post-byline {
+  letter-spacing: 0.18em;
+}
+
+.footer-col .footer-heading,
+.footer-contact .footer-heading {
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.3em;
+  line-height: inherit;
+  text-transform: uppercase;
+  color: var(--burnished-gold);
+}
+
+.footer-col .footer-heading {
+  margin-bottom: 22px;
+}
+
+.footer-contact .footer-heading {
+  margin: 0;
+}
+
+/* Keep the logo's true proportions inside the nav and footer boxes. */
+.page-blogs .nav-brand img,
+.page-blog-post .nav-brand img,
+.page-blogs .fb-mark img,
+.page-blog-post .fb-mark img {
+  object-fit: contain;
+}
+
+/* Preview mode bar (noindex preview pages only). */
+.blog-preview-bar{position:sticky;top:78px;z-index:5;margin:-24px auto 24px;max-width:720px;padding:8px 14px;text-align:center;font-family:var(--body);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--parchment);background:var(--admiralty);border:1px solid var(--antique-gold)}

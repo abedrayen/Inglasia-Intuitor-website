@@ -32,6 +32,8 @@ These are referenced as frameworks the platform's workflows are designed around;
 ## Resources
 
 - [Blogs](https://inglasiaintuitor.com/blogs): Index of articles on quality and compliance topics.
+# preview-off:blog-deviation-classification-gmp - [Deviation classification in GMP](https://inglasiaintuitor.com/blog-deviation-classification-gmp): What critical, major and minor mean for a site's deviations, who classifies and when, and how inspection deficiency grades differ.
+# preview-off:blog-planned-unplanned-deviation - [Planned and unplanned deviations in pharma](https://inglasiaintuitor.com/blog-planned-unplanned-deviation): Examples of planned and unplanned deviations, and when a planned departure belongs in change control as a temporary change.
 - [Qualified Person batch release in GMP](https://inglasiaintuitor.com/blog-qualified-person-gmp): Video discussion on batch release and documentation workload.
 - [An open letter to Pharma Quality](https://inglasiaintuitor.com/blog-open-letter): Launch article introducing Inglasia Intuitor v1.0.
 

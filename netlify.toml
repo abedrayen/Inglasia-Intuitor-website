@@ -43,6 +43,18 @@
   force = true
 
 [[redirects]]
+  from = "/blog-planned-unplanned-deviation.html"
+  to = "/blog-planned-unplanned-deviation"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-deviation-classification-gmp.html"
+  to = "/blog-deviation-classification-gmp"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/quality-system-quiz.html"
   to = "/quality-system-quiz"
   status = 301
