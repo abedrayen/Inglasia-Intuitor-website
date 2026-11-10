@@ -161,7 +161,7 @@ export default async (req) => {
             `Hours saved per year: ${hours}\n` +
             `3-year ROI: ${roi3}%\n\n` +
             `If you'd like to see these savings in your own processes, reply to this email to book a demonstration.\n\n` +
-            `Inglasia Pharma Solutions`,
+            `Inglasia LTD`,
         },
       ],
       attachments: [attachment],

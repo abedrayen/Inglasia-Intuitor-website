@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-scrollbar="light">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -25,6 +25,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Georgia and Calibri are the brand faces; Gelasio and Carlito are their metric-compatible web fallbacks. -->
 <link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&family=Gelasio:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/scrollbar.css?v=2">
+<link rel="stylesheet" href="css/cursor.css">
+<style>:root { --antique-gold: #B8963A; }</style>
 <!-- PDF generation (client-side) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
@@ -174,9 +177,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   #igl-roi .igl-btn:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
   #igl-roi .igl-btn[disabled] { opacity: .6; cursor: progress; }
   #igl-roi .igl-note { font-size: 12.5px; color: var(--border-em); margin: 12px 0 0; }
-  #igl-roi .igl-reset { background: none; border: 0; color: var(--admiralty); font-family: var(--sans); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
-    margin: 14px auto 0; display: block; }
-  #igl-roi .igl-reset:hover { color: var(--prussian); }
+  #igl-roi .igl-reset {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; margin: 14px 0 0; padding: 12px 16px;
+    background: transparent; border: 1px solid var(--border-em); border-radius: var(--r);
+    color: var(--prussian); font-family: var(--sans); font-size: 11px; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase; cursor: pointer;
+    transition: color .3s, border-color .3s, background .3s;
+  }
+  #igl-roi .igl-reset:hover { color: var(--gold); border-color: var(--gold); background: rgba(184,150,58,.06); }
+  #igl-roi .igl-reset:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
 
   /* ---------- lead form (modal) ---------- */
   #igl-roi .igl-modal { position: fixed; inset: 0; background: rgba(7,21,40,.6); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 99999; }
@@ -209,11 +219,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   #igl-roi .igl-foot { margin: 32px auto 0; font-size: 13px; color: var(--onyx-muted); text-align: center; max-width: 820px; }
   #igl-roi .igl-site-back {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--sans); font-size: 13px; color: var(--admiralty);
-    text-decoration: none; margin-bottom: 18px; letter-spacing: .02em;
+    display: inline-flex; align-items: center; gap: 10px;
+    margin: 0 0 28px; padding: 10px 0;
+    font-family: var(--sans); font-size: 11px; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--prussian); text-decoration: none;
+    border-bottom: 1px solid rgba(18, 43, 79, .22);
+    transition: color .3s, border-color .3s;
   }
-  #igl-roi .igl-site-back:hover { color: var(--gold); }
+  #igl-roi .igl-site-back span { font-size: 13px; letter-spacing: 0; line-height: 1; transition: transform .3s; }
+  #igl-roi .igl-site-back:hover { color: var(--gold); border-color: var(--gold); }
+  #igl-roi .igl-site-back:hover span { transform: translateX(-3px); }
+  #igl-roi .igl-site-back:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
 </style>
 </head>
 <body style="margin:0">
@@ -221,10 +238,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2ZCFFQW"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <div id="igl-roi">
   <div class="igl-wrap">
-    <a class="igl-site-back" href="/">← Inglasia Intuitor</a>
+    <a class="igl-site-back" href="/"><span aria-hidden="true">←</span>Inglasia Intuitor</a>
     <header class="igl-hero">
       <div class="igl-lockup"><img id="igl-mark" alt="" width="44" height="44"><span>Inglasia <em>Intuitor</em></span></div>
       <span class="igl-eyebrow igl-caps">ROI Calculator · eQMS Platform</span>
@@ -314,7 +333,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      ========================================================================== */
   var IGL_CONFIG = {
     brand: {
-      company: 'Inglasia Pharma Solutions',
+      company: 'Inglasia LTD',
       product: 'Inglasia Intuitor',
       tagline: 'Quality by design',
       website: 'https://inglasiaintuitor.com',
@@ -952,5 +971,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   document.getElementById('igl-foot').textContent = 'All figures are indicative annual estimates based on your inputs and Inglasia\'s time-saving assumptions for Intuitor. They are not a quotation or a contractual commitment. Nothing you enter is stored until you request your report.';
 })();
 </script>
+<script src="js/cursor.js"></script>
+<script src="js/scrollbar.js?v=2"></script>
 </body>
 </html>
