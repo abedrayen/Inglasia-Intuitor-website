@@ -1,4 +1,9 @@
-# Booking API (Calendly)
+# Netlify Functions
+
+Shared: `/netlify/*` is blocked from public download by a redirect in
+`netlify.toml`. Secrets live in Netlify env vars (Functions scope only).
+
+## Booking API (Calendly)
 
 The contact page's "Book a meeting" scheduler (`js/booking.js`) talks only to
 these Netlify Functions. They hold the Calendly token and call the Calendly API
@@ -10,8 +15,24 @@ on the visitor's behalf.
 | `GET /api/booking/availability?start=&end=` | `functions/booking-availability.mjs` | `GET /event_type_available_times` (split into ≤ 30-day requests) |
 | `POST /api/booking` | `functions/booking-create.mjs` | `POST /invitees` (direct booking) |
 
-Shared code is in `lib/calendly.mjs`. `/netlify/*` is blocked from public
-download by a redirect in `netlify.toml`.
+Shared code is in `lib/calendly.mjs`.
+
+## ROI report email (SendGrid)
+
+The ROI calculator (`intuitor-roi-calculator.html`) builds the PDF in the
+browser, then POSTs lead details + PDF base64 to:
+
+| Route | Function | Role |
+|---|---|---|
+| `POST /api/roi-report` | `functions/roi-report.mjs` | Validate payload; email PDF to the visitor via SendGrid; optionally notify sales |
+
+Abuse protection (no Netlify `rateLimit` rule — Free/Starter already uses both
+slots on booking):
+
+- Same-site only: requires `Content-Type: application/json` and refuses a
+  foreign `Origin`.
+- Validates lead fields, honeypot, and PDF base64 size/shape.
+- Returns `503` when `SENDGRID_API_KEY` or `ROI_FROM_EMAIL` is missing.
 
 ## Abuse protection
 
@@ -37,6 +58,10 @@ them to **Functions**; they must never be exposed to the browser.
 |---|---|
 | `CALENDLY_PERSONAL_ACCESS_TOKEN` | A Calendly Personal Access Token (Calendly → Integrations → API & Webhooks) |
 | `CALENDLY_EVENT_TYPE_URI` | The canonical event type URI, `https://api.calendly.com/event_types/<uuid>` |
+| `SENDGRID_API_KEY` | SendGrid API key (Mail Send permission) |
+| `ROI_FROM_EMAIL` | Verified SendGrid sender used for the visitor report |
+| `ROI_FROM_NAME` | Optional from display name (default `Inglasia Intuitor`) |
+| `ROI_SALES_EMAIL` | Optional internal address for lead notifications |
 
 The public link `https://calendly.com/d/dvt9-fs2-2s4/book-a-demo-inglasia-intuitor`
 is **not** the API URI. To find the URI, run:

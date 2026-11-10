@@ -60,6 +60,12 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/intuitor-roi-calculator.html"
+  to = "/intuitor-roi-calculator"
+  status = 301
+  force = true
+
 # --- Internal-only files: never meant to be publicly served ---
 # Shadowed to the real 404 page (not the homepage), with the response
 # status overridden to 404 (a standard Netlify shadowing pattern).
@@ -99,4 +105,4 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), camera=(), microphone=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com https://*.supabase.co https://www.googletagmanager.com; media-src 'self'; connect-src 'self' https://*.supabase.co https://api.staticforms.dev https://api.web3forms.com https://formspree.io https://api.emailjs.com https://www.googletagmanager.com; frame-src https://www.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com; base-uri 'self'; form-action 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com https://*.supabase.co https://www.googletagmanager.com; media-src 'self'; connect-src 'self' https://*.supabase.co https://api.staticforms.dev https://api.web3forms.com https://formspree.io https://api.emailjs.com https://www.googletagmanager.com; frame-src https://www.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com; base-uri 'self'; form-action 'self'"
