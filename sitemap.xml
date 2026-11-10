@@ -11,34 +11,30 @@
 
   <url>
     <loc>https://inglasiaintuitor.com/blogs</loc>
-    <lastmod>2026-11-04</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- preview-off:blog-deviation-classification-gmp
   <url>
     <loc>https://inglasiaintuitor.com/blog-deviation-classification-gmp</loc>
-    <lastmod>2026-11-04</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://inglasiaintuitor.com/assets/blog/gmp-deviation-classification-vial-inspection-1600.webp</image:loc>
     </image:image>
   </url>
-  -->
 
-  <!-- preview-off:blog-planned-unplanned-deviation
   <url>
     <loc>https://inglasiaintuitor.com/blog-planned-unplanned-deviation</loc>
-    <lastmod>2026-11-04</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://inglasiaintuitor.com/assets/blog/planned-unplanned-deviation-vial-filling-line-1600.webp</image:loc>
     </image:image>
   </url>
-  -->
 
   <url>
     <loc>https://inglasiaintuitor.com/blog-qualified-person-gmp</loc>
