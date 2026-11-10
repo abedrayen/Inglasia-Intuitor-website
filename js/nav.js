@@ -1,4 +1,4 @@
-// Nav scroll state + mobile menu
+// Nav scroll state + compact/mobile menu
 (function () {
   const year = String(new Date().getFullYear());
   document.querySelectorAll('.js-year').forEach((el) => {
@@ -14,21 +14,30 @@
     document.body.classList.contains('page-contact') ||
     document.body.classList.contains('page-privacy');
 
-  function isMobileNav() {
-    return window.matchMedia('(max-width: 960px)').matches;
+  // Keep in sync with css/nav.css compact breakpoint
+  const compactQuery = window.matchMedia('(max-width: 1200px)');
+
+  function isCompactNav() {
+    return compactQuery.matches;
+  }
+
+  function syncPanelA11y(open) {
+    const compact = isCompactNav();
+    navPanel.setAttribute('aria-hidden', compact ? (open ? 'false' : 'true') : 'false');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    navToggle.hidden = !compact;
   }
 
   function setNavOpen(open) {
-    const next = Boolean(open) && isMobileNav();
+    const next = Boolean(open) && isCompactNav();
     nav.classList.toggle('is-open', next);
-    navPanel.setAttribute('aria-hidden', next ? 'false' : 'true');
+    syncPanelA11y(next);
     if (next || forceScrolled || window.scrollY > 40) {
       nav.classList.add('scrolled');
     } else if (!forceScrolled) {
       nav.classList.remove('scrolled');
     }
-    navToggle.setAttribute('aria-expanded', next ? 'true' : 'false');
-    navToggle.setAttribute('aria-label', next ? 'Close menu' : 'Open menu');
   }
 
   window.addEventListener('scroll', () => {
@@ -59,8 +68,19 @@
     if (e.key === 'Escape') setNavOpen(false);
   });
 
+  function onViewportChange() {
+    setNavOpen(false);
+  }
+
+  if (typeof compactQuery.addEventListener === 'function') {
+    compactQuery.addEventListener('change', onViewportChange);
+  } else if (typeof compactQuery.addListener === 'function') {
+    compactQuery.addListener(onViewportChange);
+  }
+
   window.addEventListener('resize', () => {
-    if (!isMobileNav()) setNavOpen(false);
+    if (!isCompactNav()) setNavOpen(false);
+    else syncPanelA11y(nav.classList.contains('is-open'));
   });
 
   setNavOpen(false);

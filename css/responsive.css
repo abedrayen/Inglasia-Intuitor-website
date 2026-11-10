@@ -12,7 +12,7 @@
   .promise-grid { grid-template-columns: 1fr; gap: 40px; }
 }
 /* Clear the fixed nav + hamburger so the top-right corner doesn't collide */
-@media (max-width: 960px) {
+@media (max-width: 1200px) {
   .hero .bracket.tr { top: 96px; right: 24px; }
 }
 

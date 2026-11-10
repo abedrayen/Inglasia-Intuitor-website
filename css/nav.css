@@ -1,18 +1,22 @@
 /* ============================================================
    NAVIGATION — Prussian bar, gold mark, italic Intuitor wordmark
+   Desktop: brand | centered links (flex middle) | CTA
+   Compact: hamburger + dropdown when the bar cannot fit links cleanly
    ============================================================ */
 .nav {
+  --nav-collapse: 1200px;
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 2000; /* above film grain */
   padding: 18px 48px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   background: rgba(10, 26, 51, 0);
   backdrop-filter: blur(0px);
   transition: background 0.4s ease, padding 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s;
   border-bottom: 1px solid transparent;
+  box-sizing: border-box;
 }
 .nav.scrolled,
 .nav.is-open {
@@ -33,10 +37,12 @@
   text-decoration: none;
   position: relative;
   z-index: 3;
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  min-width: 0;
 }
 .nav-brand img {
   width: 34px; height: 34px;
+  flex-shrink: 0;
   filter: drop-shadow(0 1px 3px rgba(0,0,0,0.35));
 }
 .nav-brand .wordmark {
@@ -52,12 +58,11 @@
   font-weight: 400;
 }
 
-/* Links locked to bar center — CTA presence must not shift them */
+/* Middle zone: links stay between brand and actions — never underlap either */
 .nav-panel {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,13 +74,15 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
-  gap: 24px;
+  justify-content: center;
+  gap: clamp(12px, 1.4vw, 24px);
+  max-width: 100%;
 }
 .nav-links a {
   font-family: var(--body);
   font-size: 11px;
   font-weight: 400;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(250, 247, 242, 0.62);
   text-decoration: none;
@@ -83,8 +90,14 @@
   padding: 4px 0;
   transition: color 0.3s;
   white-space: nowrap;
+  flex: 0 0 auto;
 }
 .nav-links a:hover { color: var(--burnished-gold); }
+.nav-links a:focus-visible {
+  color: var(--burnished-gold);
+  outline: 1px solid rgba(184, 150, 58, 0.55);
+  outline-offset: 4px;
+}
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -93,18 +106,21 @@
   background: var(--burnished-gold);
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after { width: 100%; }
 
-/* CTA + hamburger always above the mobile drawer */
+/* CTA + hamburger — CTA always extreme right */
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-shrink: 0;
+  flex: 0 0 auto;
   margin-left: auto;
   position: relative;
   z-index: 3;
 }
+.nav-toggle { order: 1; }
+.nav-cta { order: 2; }
 
 .nav-cta {
   font-family: var(--button);
@@ -120,10 +136,15 @@
   white-space: nowrap;
   flex-shrink: 0;
 }
+.nav-cta-short { display: none; }
 .nav-cta:hover {
   background: var(--antique-gold);
   color: var(--prussian-deep);
   border-color: var(--antique-gold);
+}
+.nav-cta:focus-visible {
+  outline: 1px solid rgba(184, 150, 58, 0.7);
+  outline-offset: 3px;
 }
 
 .nav-toggle {
@@ -141,6 +162,10 @@
   flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+}
+.nav-toggle:focus-visible {
+  outline: 1px solid rgba(184, 150, 58, 0.7);
+  outline-offset: 2px;
 }
 .nav-toggle-bar {
   display: block;
@@ -160,10 +185,34 @@
   transform: translateY(-6px) rotate(-45deg);
 }
 
-/* Hamburger only when the bar is actually tight */
-@media (max-width: 960px) {
+/* Density step before collapse — still one clean row */
+@media (max-width: 1360px) and (min-width: 1201px) {
+  .nav {
+    padding-left: 32px;
+    padding-right: 32px;
+    gap: 16px;
+  }
+  .nav.scrolled {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .nav-links {
+    gap: 10px;
+  }
+  .nav-links a {
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+  }
+  .nav-cta {
+    padding: 10px 14px;
+  }
+}
+
+/* Hamburger when the bar cannot host all links without crowding */
+@media (max-width: 1200px) {
   .nav {
     padding: 14px 28px;
+    gap: 12px;
   }
   .nav.scrolled {
     padding: 12px 28px;
@@ -172,19 +221,18 @@
     display: flex;
   }
 
-  /* Small dropdown under the hamburger — slides open */
   .nav-panel {
+    position: absolute;
     top: calc(100% + 8px);
     right: 28px;
     left: auto;
+    flex: none;
     z-index: 4;
-    width: min(220px, calc(100vw - 36px));
+    width: min(260px, calc(100vw - 36px));
     margin: 0;
     padding: 10px 0;
-    flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    gap: 0;
     background: rgba(10, 26, 51, 0.96);
     border: 1px solid rgba(184, 150, 58, 0.22);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
@@ -210,8 +258,10 @@
   .nav-links {
     flex-direction: column;
     align-items: stretch;
+    justify-content: flex-start;
     gap: 0;
     width: 100%;
+    max-width: none;
   }
   .nav-links a {
     font-size: 11px;
@@ -219,6 +269,7 @@
     color: rgba(250, 247, 242, 0.78);
     padding: 12px 18px;
     width: 100%;
+    box-sizing: border-box;
     border-bottom: 1px solid rgba(184, 150, 58, 0.1);
   }
   .nav-links a:last-child {
@@ -227,17 +278,13 @@
   .nav-links a::after {
     display: none;
   }
+  .nav-links a:focus-visible {
+    outline-offset: -2px;
+  }
 
   .nav-cta {
     padding: 10px 16px;
     font-size: 12px;
-  }
-}
-
-/* Slightly tighter link gaps before hamburger kicks in */
-@media (max-width: 1100px) and (min-width: 961px) {
-  .nav-links {
-    gap: 16px;
   }
 }
 
@@ -249,6 +296,9 @@
   .nav.scrolled {
     padding: 10px 16px;
   }
+  .nav-brand {
+    gap: 10px;
+  }
   .nav-brand img {
     width: 28px;
     height: 28px;
@@ -256,19 +306,23 @@
   .nav-brand .wordmark {
     font-size: 20px;
   }
-  /* Keep brand; hide CTA so bar doesn't crowd */
-  .nav-cta {
-    display: none;
+  .nav-actions {
+    gap: 8px;
   }
+  .nav-cta {
+    padding: 9px 12px;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+  .nav-cta-full { display: none; }
+  .nav-cta-short { display: inline; }
   .nav-panel {
     right: 16px;
+    width: min(280px, calc(100vw - 32px));
   }
   .nav-toggle {
     width: 40px;
     height: 40px;
-  }
-  .nav-actions {
-    gap: 0;
   }
 }
 
@@ -276,5 +330,11 @@
   .nav-brand .wordmark {
     font-size: 18px;
   }
+  .nav-panel {
+    right: 12px;
+    width: min(280px, calc(100vw - 24px));
+  }
+  .nav-cta {
+    padding: 8px 10px;
+  }
 }
-
