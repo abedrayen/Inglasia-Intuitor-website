@@ -50,7 +50,7 @@ function meetingThankYouText(booking) {
     (guestCount ? ` and ${guestCount} guest${guestCount === 1 ? '' : 's'}` : '');
 
   return (
-    `Your walkthrough is confirmed${whenClause}. ` +
+    `Your discovery call is confirmed${whenClause}. ` +
     `Calendly is sending the invitation and meeting details to ${inbox}. ` +
     'Check your spam folder if it has not arrived within a few minutes.'
   );
@@ -58,7 +58,7 @@ function meetingThankYouText(booking) {
 
 function setThankYouCopy(from, payload) {
   if (from === 'meeting') {
-    if (eyebrow) eyebrow.textContent = 'Walkthrough booked';
+    if (eyebrow) eyebrow.textContent = 'Discovery call booked';
     if (accent) accent.textContent = "We'll see you there.";
     if (lead) lead.textContent = meetingThankYouText(payload);
   } else {
