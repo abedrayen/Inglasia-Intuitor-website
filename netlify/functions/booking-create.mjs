@@ -219,7 +219,7 @@ export default async (req) => {
     const end = new Date(start.getTime() + (Number(eventType.duration) || 0) * 60 * 1000);
     return json(201, {
       booking: {
-        eventName: eventType.name || 'Book a demo',
+        eventName: eventType.name || 'Book a Discovery Call',
         start: start.toISOString(),
         end: end.toISOString(),
         timezone: invitee.timezone || body.timezone,

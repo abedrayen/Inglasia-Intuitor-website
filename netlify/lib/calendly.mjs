@@ -196,7 +196,7 @@ export function enabledQuestions(eventType) {
 // (custom links, host phone numbers) are deliberately left out.
 export function publicEventType(eventType) {
   return {
-    name: eventType.name || 'Book a demo',
+    name: eventType.name || 'Book a Discovery Call',
     duration: eventType.duration,
     description: eventType.description_plain || '',
     locations: bookableLocations(eventType).map((loc, index) => ({

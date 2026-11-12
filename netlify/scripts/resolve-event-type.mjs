@@ -1,4 +1,4 @@
-// Finds the canonical Calendly API URI for the public "Book a demo" link.
+// Finds the canonical Calendly API URI for the public "Book a Discovery Call" link.
 //
 //   CALENDLY_PERSONAL_ACCESS_TOKEN=... node netlify/scripts/resolve-event-type.mjs [public-url]
 //
